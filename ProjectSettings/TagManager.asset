@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - CustomerWaypoints
   - Customer
+  - CustomerWaypointsEnter
+  - CustomerWaypointsExit
   layers:
   - Default
   - TransparentFX
