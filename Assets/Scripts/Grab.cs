@@ -8,7 +8,6 @@ public class Grab : MonoBehaviour
     private bool canpickup;
     private GameObject ObjectIwantToPickUp;
     private bool hasItem;
-    
     void Start()
     {
         canpickup = false;
