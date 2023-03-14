@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground
+  - CustomerWaypoints
+  - Customer
+  - CustomerWaypointsEnter
+  - CustomerWaypointsExit
+  - log
   layers:
   - Default
   - TransparentFX
@@ -11,8 +17,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - log
+  - Ground
   - 
   - 
   - 
