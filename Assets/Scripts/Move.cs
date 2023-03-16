@@ -8,32 +8,31 @@ using Random = System.Random;
 public class Move : MonoBehaviour
 {
     private Rigidbody rigidbody;
+    
+    public GameObject camera;
+    
     public float moveSpeed;
     public float rotSpeed;
-    public float jumpHeight;
     
     private Vector3 dir = Vector3.zero;
 
-    private bool ground = false;
     public LayerMask layer;
+
+    //private Vector3 camPlayer;
+    
     private void Start()
     {
+        //camPlayer = camera.transform.position - this.transform.position;
         rigidbody = this.GetComponent<Rigidbody>();
     }
 
     void Update()
     {
+        //camera.transform.position = this.transform.position + camPlayer;
+        
         dir.x = Input.GetAxis("Horizontal");
         dir.z = Input.GetAxis("Vertical");
         dir.Normalize();
-        
-        CheckGround();
-        
-        if (Input.GetButton("Jump") && ground)
-        {
-            Vector3 jumpPower = Vector3.up * jumpHeight;
-            rigidbody.AddForce(jumpPower,ForceMode.VelocityChange);
-        }
     }
 
     private void FixedUpdate()
@@ -50,18 +49,5 @@ public class Move : MonoBehaviour
         }
         
         rigidbody.MovePosition(this.gameObject.transform.position + moveSpeed * Time.deltaTime * dir);
-    }
-
-    void CheckGround()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position + (Vector3.up * 0.2f), Vector3.down, out hit, 0.4f, layer))
-        {
-            ground = true;
-        }
-        else
-        {
-            ground = false;
-        }
     }
 }

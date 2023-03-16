@@ -1,13 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
+using UnityEditor;
 using UnityEngine;
+using Object = System.Object;
 
 public class Grab : MonoBehaviour
 {
     public GameObject grabSlot;
     private bool canpickup;
-    private GameObject ObjectIwantToPickUp;
+    [SerializeField]private GameObject ObjectIwantToPickUp;
     private bool hasItem;
+    private Transform pickupObjectParent;
+    public float lerpSpeed;
+    private Vector3 GrabVector;
+    private GameObject ObjectIPickedUp;
     void Start()
     {
         canpickup = false;
@@ -16,34 +23,30 @@ public class Grab : MonoBehaviour
     
     void Update()
     {
-        if(canpickup == true)
+        //잡고 있을 떈 놓고 잡아야 하는 시스템
+        if (Input.GetKeyDown("e"))
         {
-            if (Input.GetKeyDown("e"))
+            if (hasItem == true)//버리기
             {
-                if (hasItem == true)
+                ObjectIwantToPickUp.transform.parent = pickupObjectParent;
+                ObjectIwantToPickUp.GetComponent<Collider>().isTrigger = false;
+                ObjectIwantToPickUp.GetComponent<Rigidbody>().isKinematic = false;
+                hasItem = false;
+            }
+            else
+            {
+                if (canpickup == true)//근처에 있는 거 줍기
                 {
-                    Debug.Log("Has An Item. You Should drop your item with Key 'Q'");
-                    return;
-                }
-                else
-                {
-                    ObjectIwantToPickUp.GetComponent<Rigidbody>().isKinematic = true;
-                    ObjectIwantToPickUp.transform.position = grabSlot.transform.position;
+                    pickupObjectParent = ObjectIwantToPickUp.transform.parent;
+                    ObjectIwantToPickUp.transform.position = Vector3.Slerp(ObjectIwantToPickUp.transform.position,grabSlot.transform.position,0.9f);
                     ObjectIwantToPickUp.transform.parent = grabSlot.transform;
+                    ObjectIwantToPickUp.GetComponent<Rigidbody>().isKinematic = true;
+                    ObjectIwantToPickUp.GetComponent<Collider>().isTrigger = true;
                     hasItem = true;
                 }
             }
         }
-        if (Input.GetKeyDown("q"))
-        {
-            if (hasItem == true)
-            {
-                
-            }
-            ObjectIwantToPickUp.transform.parent = null;
-            ObjectIwantToPickUp.GetComponent<Rigidbody>().isKinematic = false;
-            hasItem = false;
-        }
+        
     }
     
     private void OnTriggerEnter(Collider other)
@@ -52,13 +55,21 @@ public class Grab : MonoBehaviour
         {
             Debug.Log("OnTriggerEnter: Found log");
             canpickup = true;
-            ObjectIwantToPickUp = other.gameObject;
-            Debug.Log("You can pick up Item with Key"+"e");
+            if (hasItem == false)
+            {
+                ObjectIwantToPickUp = other.gameObject;
+                Debug.Log("You can pick up Item with Key"+"e");
+            }
+            else
+            {
+                Debug.Log("Has An Item. You Should drop your item with Key 'Q'");
+            }
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         Debug.Log("OnTriggerExit: Can Pickup False");
         canpickup = false;
-    }
+    }                           
 }
