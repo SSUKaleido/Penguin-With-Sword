@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Penguinsword.Model
+namespace CookObject
 {
     public interface IPickable
     {

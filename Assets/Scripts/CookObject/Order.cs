@@ -1,9 +1,9 @@
-﻿/*using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using Penguinsword.Data;
+using Data;
 using UnityEngine;
 
-namespace Penguinsword.Model
+namespace CookObject
 {
     public class Order : MonoBehaviour
     {
@@ -100,6 +100,7 @@ namespace Penguinsword.Model
             
             OnExpired?.Invoke(this);
             ResetCountdown();
+            ResetCountdown();
         }
 
         public void SetOrderDelivered()
@@ -112,4 +113,3 @@ namespace Penguinsword.Model
         
     }
 }
-*/

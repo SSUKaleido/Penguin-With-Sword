@@ -1,6 +1,6 @@
-﻿namespace Penguinsword.Model
+﻿namespace CookObject
 {
-    public enum ObjectStatus
+    public enum FishStatus
     {
         Raw,
         Processed,

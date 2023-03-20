@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using Data;
 using UnityEngine;
 
-namespace Penguinsword.Data
+namespace Data
 {
     [CreateAssetMenu(fileName = "OrderData", menuName = "OrderData", order = 2)]
     public class OrderData : ScriptableObject

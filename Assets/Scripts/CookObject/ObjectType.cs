@@ -1,4 +1,4 @@
-namespace Penguinsword.Model
+namespace CookObject
 {
     public enum ObjectType
     {
