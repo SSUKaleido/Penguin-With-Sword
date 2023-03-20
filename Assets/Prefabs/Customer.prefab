@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1479487138177895141}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.58, y: 0, z: 4.04}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1479487138377689734}
@@ -50,6 +50,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   rotSteed: 60
+  waypointEnterIndex: 0
+  waypointExitIndex: 0
   customerStateCode: 0
 --- !u!1 &1479487138377689728
 GameObject:

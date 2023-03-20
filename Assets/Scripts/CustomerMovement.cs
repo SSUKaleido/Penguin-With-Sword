@@ -73,7 +73,7 @@ public class CustomerMovement : MonoBehaviour
             else if (customerStateCode == 2)
             {
                 //말풍선 제거 로직 필요
-                transform.GetChild(3).gameObject.SetActive(false);
+                SetActiveMenuPop(false);
                 
                 // 다음 웨이포인트가 있으면 인덱스를 1 증가시켜 다음 웨이포인트로 향하게 한다.
                 if (waypointExitIndex < _customerWaypointExit.waypoints.Length-1)
@@ -124,4 +124,9 @@ public class CustomerMovement : MonoBehaviour
 
         return _nextWaypointVector3;
     }
+    
+    public void SetActiveMenuPop(bool isActive)
+    {
+        transform.GetChild(3).gameObject.SetActive(isActive);
+    } 
 }

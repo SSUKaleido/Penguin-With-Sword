@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CustomerWaypointsTransform = GameObject.FindGameObjectWithTag("CustomerWaypoints").GetComponent<Transform>();
+        CustomerWaypointsTransform = GameObject.FindGameObjectWithTag("CustomerWaypointsEnter").GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -35,10 +35,12 @@ public class GameManager : MonoBehaviour
         GameObject initCustomer;
         CustomerMovement initCustomerMovement;
         initCustomer = PoolManager.GetComponent<PoolManager>().Get(0);
+        initCustomer.transform.position = CustomerWaypointsTransform.position;
         initCustomerMovement = initCustomer.GetComponent<CustomerMovement>();
         initCustomerMovement.customerStateCode = 0;
         initCustomerMovement.waypointEnterIndex = 0;
         initCustomerMovement.waypointExitIndex = 0;
+        initCustomerMovement.SetActiveMenuPop(true);
     }
 
     public void ServingCustomer()
