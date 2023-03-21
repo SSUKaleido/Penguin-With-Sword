@@ -9,7 +9,8 @@ public class Fish : MonoBehaviour
 {
     //변수
     public bool cookable;
-    
+    public Material[] matbody = new Material[3];
+    public Material[] matfin = new Material[3];
     /**
      * cookState: 원하는 생선 종류
      * comment: 손님이 원하는 요리정도를 비교하기 위함
@@ -27,18 +28,21 @@ public class Fish : MonoBehaviour
     void Update()
     {
         // update안에서 if Pan 위면 Time.deltaTime을 조리시간에 +=
-        if( cookable /*TODO: Pan 위에 있는지 판단코드 필요*/){
+        if( cookable ){
             cookTime += Time.deltaTime;
         }
 
         // 조리된 총 시간 합이 생선 종류 경계 일때마다
         // 시간 조건에 따라서 Material을 바꾸는 함수를 호출
-        if (cookTime > wellcookTime && cookTime < overcookTime ){ 
+        if (cookTime > wellcookTime && cookTime < overcookTime ){
+            
             // 잘익은 시간 < cookTime < 타는 시간
             // material을 "잘익은 물고기" 색으로 바꾸는 함수 호출해줘요
+            CookedMat();
         } else if (cookTime > overcookTime){
             // 타는 시간 < cookTime
             // material을 "탄 물고기" 색으로 바꾸는 함수 호출해줘요
+            BurntMat();
         }
     }
 
@@ -60,6 +64,15 @@ public class Fish : MonoBehaviour
         }
     }
     // 조리 완료 Material 변경 함수
-    
+    public void CookedMat()
+    {
+        transform.GetComponent<MeshRenderer>().material = matbody[1];
+        transform.GetComponent<MeshRenderer>().material = matfin[1];
+    }
     // 재료 불탐 Material 변경 함수
+    public void BurntMat()
+    {
+        transform.GetComponent<MeshRenderer>().material = matbody[2];
+        transform.GetComponent<MeshRenderer>().material = matfin[2];
+    }
 }
