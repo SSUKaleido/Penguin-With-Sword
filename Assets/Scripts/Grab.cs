@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TreeEditor;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using Object = System.Object;
@@ -8,25 +10,18 @@ using Object = System.Object;
 public class Grab : MonoBehaviour
 {
     public GameObject grabSlot;
-    private bool canpickup;
-    private bool canobjectpool;
-    [SerializeField] private GameObject ObjectIwantToPickUp;
-    [SerializeField] private int IndexIwantToObjectPool;
-    private bool hasItem;
-    private Transform pickupObjectParent;
-    private Vector3 GrabVector;
-    private GameObject ObjectIPickedUp;
+    [SerializeField] private bool hasItem;
+    [SerializeField] private Transform pickedObject;
+    [SerializeField] private Transform pickupObjectParent;
+    [SerializeField] private Transform closestObject = null;
 
     [SerializeField]private Animator _playerAnimator;
     private PoolManager _poolManager;
     
-    private List<Transform> objectsInRange = new List<Transform>();
     void Start()
     {
         _playerAnimator = transform.parent.GetComponentInChildren<Animator>();
         _poolManager = GameObject.Find("PoolManager").GetComponent<PoolManager>();
-        canpickup = false;
-        hasItem = false;
     }
     
     void Update()
@@ -34,83 +29,122 @@ public class Grab : MonoBehaviour
         //잡고 있을 떈 놓고 잡아야 하는 시스템
         if (Input.GetKeyDown("e"))
         {
-            if (hasItem == true)//버리기
+            if (hasItem == true)//버리기, 놓기
             {
-                ObjectIwantToPickUp.transform.parent = pickupObjectParent;
-                ObjectIwantToPickUp.GetComponent<Collider>().isTrigger = false;
-                ObjectIwantToPickUp.GetComponent<Rigidbody>().isKinematic = false;
-                hasItem = false;
-                _playerAnimator.SetBool("IsWithObject", hasItem);
+                if (!closestObject)
+                {
+                    DropPickedObjectObject();
+                }
+                else if (closestObject.CompareTag("Servertable")) // 서빙대
+                {
+                    DropPickedObjectObject(closestObject.position + new Vector3(0, 1, 0));
+                }
+                else if (closestObject.CompareTag("Kitchen")) // 조리대 
+                {
+                    DropPickedObjectObject(closestObject.position + new Vector3(0, 1, 0));
+                }
             }
             else
             {
-                if (canpickup == true)//근처에 있는 거 줍기
+                if (closestObject.CompareTag("log") || closestObject.CompareTag("Grabable"))//근처에 있는 거 줍기
                 {
-                    pickupObjectParent = ObjectIwantToPickUp.transform.parent;
-                    ObjectIwantToPickUp.transform.position = Vector3.Slerp(ObjectIwantToPickUp.transform.position,grabSlot.transform.position,0.9f);
-                    ObjectIwantToPickUp.transform.parent = grabSlot.transform;
-                    ObjectIwantToPickUp.GetComponent<Rigidbody>().isKinematic = true;
-                    ObjectIwantToPickUp.GetComponent<Collider>().isTrigger = true;
-                    hasItem = true;
-                    _playerAnimator.SetBool("IsWithObject", hasItem);
+                    GrabClosestObject(closestObject);
                 }
-                else if (canobjectpool == true)//근처에 있는 오브젝트 풀업 하기
+                else if (closestObject.CompareTag("DiveTrigger"))//근처에 있는 오브젝트 풀업 하기
                 {
-                    ObjectIwantToPickUp = _poolManager.Get(IndexIwantToObjectPool);
-                    pickupObjectParent = ObjectIwantToPickUp.transform.parent;
-                    // ObjectIwantToPickUp.transform.position = Vector3.Slerp(ObjectIwantToPickUp.transform.position,grabSlot.transform.position,0.9f);
-                    ObjectIwantToPickUp.transform.position = grabSlot.transform.position;
-                    ObjectIwantToPickUp.transform.parent = grabSlot.transform;
-                    ObjectIwantToPickUp.GetComponent<Rigidbody>().isKinematic = true;
-                    ObjectIwantToPickUp.GetComponent<Collider>().isTrigger = true;
-                    hasItem = true;
-                    _playerAnimator.SetBool("IsWithObject", hasItem);
+                    GrabClosestObject(_poolManager.Get(1).transform);
                 }
             }
         }
     }
     
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("log") || other.gameObject.CompareTag("Grabable"))
+        Debug.Log("OnTriggerExit: Can Pickup False");
+        if (hasItem)
         {
-            float distance = Vector3.Distance(transform.position, other.transform.position);
-            
-            Debug.Log("OnTriggerEnter: Found log");
-            canpickup = true;
-            if (hasItem == false)
+            if (other.gameObject.CompareTag("Servertable")
+                || other.gameObject.CompareTag("Kitchen"))
             {
-                ObjectIwantToPickUp = other.gameObject;
-                Debug.Log("You can pick up Item with Key"+"e");
-            }
-            else
-            {
-                Debug.Log("Has An Item. You Should drop your item with Key 'Q'");
+                closestObject = null;
             }
         }
-
-        if (other.gameObject.CompareTag("DiveTrigger"))
+        else
         {
-            canobjectpool = true;
-            if (hasItem == false)
+            if (other.gameObject.CompareTag("log")
+                || other.gameObject.CompareTag("Grabable")
+                || other.gameObject.CompareTag("DiveTrigger"))
             {
-                IndexIwantToObjectPool = 1;
-                Debug.Log("You can pick up Item with Key"+"e");
+                closestObject = null;
             }
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        Debug.Log("OnTriggerExit: Can Pickup False");
-        if(other.gameObject.CompareTag("log") || other.gameObject.CompareTag("Grabable"))
+        if (hasItem)
         {
-            canpickup = false;
+            if (other.gameObject.CompareTag("Servertable")
+                || other.gameObject.CompareTag("Kitchen"))
+            {
+                SetClosestObject(other);
+            }
         }
+        else
+        {
+            if (other.gameObject.CompareTag("log")
+                || other.gameObject.CompareTag("Grabable")
+                || other.gameObject.CompareTag("DiveTrigger"))
+            {
+                SetClosestObject(other);
+            }
+        }
+    }
 
-        if (other.gameObject.CompareTag("DiveTrigger"))
+    void OnTriggerExit(Collider other)
+    {
+        // 가장 가까운 물체가 나간 경우
+        if (other.transform == closestObject)
         {
-            canobjectpool = false;
+            closestObject = null;
         }
-    }                           
+    }
+
+    void SetClosestObject(Collider other)
+    {
+        // 가장 가까운 물체를 찾기 위해 거리 계산
+        float distance = Vector3.Distance(transform.position, other.transform.position);
+
+        // closestObject가 null이거나, 현재 물체가 더 가까운 경우
+        if (closestObject == null || distance < Vector3.Distance(transform.position, closestObject.position))
+        {
+            closestObject = other.transform;
+        }
+    }
+
+    void GrabClosestObject(Transform grabObject)
+    {
+        pickupObjectParent = grabObject.parent;
+        grabObject.position = grabSlot.transform.position;
+        grabObject.parent = grabSlot.transform;
+        grabObject.GetComponent<Rigidbody>().isKinematic = true;
+        grabObject.GetComponent<Collider>().isTrigger = true;
+        pickedObject = grabObject;
+        closestObject = null;
+        hasItem = true;
+        _playerAnimator.SetBool("IsWithObject", hasItem);
+    }
+
+    void DropPickedObjectObject(Vector3 dropPosition = default)
+    {
+        if (dropPosition != default)
+        {
+            pickedObject.position = dropPosition;
+        }
+        pickedObject.parent = pickupObjectParent;
+        pickedObject.GetComponent<Collider>().isTrigger = false;
+        pickedObject.GetComponent<Rigidbody>().isKinematic = false;
+        hasItem = false;
+        _playerAnimator.SetBool("IsWithObject", hasItem);
+    }
 }

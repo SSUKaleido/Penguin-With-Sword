@@ -280,6 +280,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: servertable
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2611835bd255c304d99b70e43794ce42, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2611835bd255c304d99b70e43794ce42, type: 3}
 --- !u!1 &1457301151539752873 stripped
@@ -619,6 +623,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d92c975effafa2f4f884d63d7ba8fda7, type: 3}
       propertyPath: m_Name
       value: kitchen_middle
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d92c975effafa2f4f884d63d7ba8fda7, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d92c975effafa2f4f884d63d7ba8fda7, type: 3}
@@ -1470,6 +1478,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: kitchen_right
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3bc2e79c6260bb54baaeba5a85049b2f, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bc2e79c6260bb54baaeba5a85049b2f, type: 3}
 --- !u!1 &6942832675838328147 stripped
@@ -1724,6 +1736,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 30a687b3e29ce2e48920a571864076c8, type: 3}
       propertyPath: m_Name
       value: kitchen_left
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 30a687b3e29ce2e48920a571864076c8, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30a687b3e29ce2e48920a571864076c8, type: 3}
