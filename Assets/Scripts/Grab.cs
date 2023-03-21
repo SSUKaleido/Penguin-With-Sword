@@ -15,8 +15,11 @@ public class Grab : MonoBehaviour
     public float lerpSpeed;
     private Vector3 GrabVector;
     private GameObject ObjectIPickedUp;
+
+    private Animator _playerAnimator;
     void Start()
     {
+        _playerAnimator = pickupObjectParent.GetComponentInChildren<Animator>();
         canpickup = false;
         hasItem = false;
     }
@@ -32,6 +35,7 @@ public class Grab : MonoBehaviour
                 ObjectIwantToPickUp.GetComponent<Collider>().isTrigger = false;
                 ObjectIwantToPickUp.GetComponent<Rigidbody>().isKinematic = false;
                 hasItem = false;
+                _playerAnimator.SetBool("IsWithObject", hasItem);
             }
             else
             {

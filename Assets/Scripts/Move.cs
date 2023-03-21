@@ -7,6 +7,8 @@ using Random = System.Random;
 
 public class Move : MonoBehaviour
 {
+    private Animator _playerAnimator;
+    
     private Rigidbody rigidbody;
     
     public GameObject camera;
@@ -24,15 +26,20 @@ public class Move : MonoBehaviour
     {
         //camPlayer = camera.transform.position - this.transform.position;
         rigidbody = this.GetComponent<Rigidbody>();
+
+        _playerAnimator = this.GetComponentInChildren<Animator>();
     }
 
     void Update()
     {
         //camera.transform.position = this.transform.position + camPlayer;
         
-        dir.x = Input.GetAxis("Horizontal");
-        dir.z = Input.GetAxis("Vertical");
+        dir.x = Input.GetAxisRaw("Horizontal");
+        dir.z = Input.GetAxisRaw("Vertical");
         dir.Normalize();
+        
+        // _playerAnimator.Parameter변경
+        _playerAnimator.SetFloat("ForwardVelocity", dir.magnitude);
     }
 
     private void FixedUpdate()
