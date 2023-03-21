@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject Customer;
     public GameObject[] Customers;
 
     public GameObject PoolManager;
-
-    private Transform CustomerWaypointsTransform;
     // Start is called before the first frame update
     void Start()
     {
-        CustomerWaypointsTransform = GameObject.FindGameObjectWithTag("CustomerWaypointsEnter").GetComponent<Transform>();
+        
     }
 
     // Update is called once per frame
@@ -31,16 +28,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnCustomer()
     {
-        // GameObject customer = (GameObject)Instantiate(Customer, CustomerWaypointsTransform.position, CustomerWaypointsTransform.rotation);
-        GameObject initCustomer;
-        CustomerMovement initCustomerMovement;
-        initCustomer = PoolManager.GetComponent<PoolManager>().Get(0);
-        initCustomer.transform.position = CustomerWaypointsTransform.position;
-        initCustomerMovement = initCustomer.GetComponent<CustomerMovement>();
-        initCustomerMovement.customerStateCode = 0;
-        initCustomerMovement.waypointEnterIndex = 0;
-        initCustomerMovement.waypointExitIndex = 0;
-        initCustomerMovement.SetActiveMenuPop(true);
+        PoolManager.GetComponent<PoolManager>().Get(0);
     }
 
     public void ServingCustomer()

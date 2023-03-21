@@ -176,6 +176,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4132430777291799288}
   - component: {fileID: 1815802210768198101}
+  - component: {fileID: 525346827223690709}
+  - component: {fileID: 4232724526181392815}
+  - component: {fileID: 8841637801552291521}
   m_Layer: 0
   m_Name: fish
   m_TagString: Untagged
@@ -219,6 +222,57 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!64 &525346827223690709
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3608094999648804930}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
+--- !u!65 &4232724526181392815
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3608094999648804930}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.5, z: 0.25}
+  m_Center: {x: 0, y: 0, z: 0.17}
+--- !u!114 &8841637801552291521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3608094999648804930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b74941720fa439ca323d823cfa4b811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cookable: 0
+  matbody:
+  - {fileID: 2100000, guid: 1fb15b6ac55d3d04490616b916d0ba32, type: 2}
+  - {fileID: 2100000, guid: 257730bfa6559fc4dbb45f45753a2612, type: 2}
+  - {fileID: 2100000, guid: 8d9f3774821d2dc4ba85e9b179beb8df, type: 2}
+  matfin:
+  - {fileID: 2100000, guid: 3989381d53ca4664a9b53bfa0fcb1f7f, type: 2}
+  - {fileID: 2100000, guid: 9064d4d27577b44478784b82f817927f, type: 2}
+  - {fileID: 2100000, guid: ee0d709ef0f911446ba7c024dfb5498a, type: 2}
+  cookState: 0
+  wellcookTime: 5
+  overcookTime: 10
 --- !u!1 &4427378887905620919
 GameObject:
   m_ObjectHideFlags: 0

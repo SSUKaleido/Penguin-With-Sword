@@ -11,6 +11,7 @@ public class PoolManager : MonoBehaviour
     // Pooling List
     private List<GameObject>[] pools;
 
+    private Transform CustomerWaypointsTransform;
     private void Awake()
     {
         pools = new List<GameObject>[prefabs.Length];
@@ -19,6 +20,8 @@ public class PoolManager : MonoBehaviour
         {
             pools[index] = new List<GameObject>();
         }
+        
+        CustomerWaypointsTransform = GameObject.FindGameObjectWithTag("CustomerWaypointsEnter").GetComponent<Transform>();
     }
 
     /**
@@ -47,6 +50,23 @@ public class PoolManager : MonoBehaviour
             selectedGameObject = Instantiate(prefabs[index], transform);
             pools[index].Add(selectedGameObject);
         }
+
+        //각 프리팹 초기화
+        switch (index)
+        {
+            case 0:
+                CustomerMovement initCustomerMovement;
+                selectedGameObject.transform.position = CustomerWaypointsTransform.position;
+                initCustomerMovement = selectedGameObject.GetComponent<CustomerMovement>();
+                initCustomerMovement.customerStateCode = 0;
+                initCustomerMovement.waypointEnterIndex = 0;
+                initCustomerMovement.waypointExitIndex = 0;
+                initCustomerMovement.SetActiveMenuPop(true);
+                initCustomerMovement.SetRandomCustomerWantedCookState();
+                break;
+            // case 1: break;
+        }
+
         return selectedGameObject;
     }
 }

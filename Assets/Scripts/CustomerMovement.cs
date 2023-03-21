@@ -16,14 +16,24 @@ public class CustomerMovement : MonoBehaviour
     public int waypointEnterIndex = 0;
     public int waypointExitIndex = 0;
 
-    public int customerStateCode = 0; 
+    public int customerStateCode = 0;
     /**
-     * customerStateCode
+     * customerStateCode: 손님의 상태
+     * comment: 현재 손님이 음식을 받기전인지 받은 후인지 판단
      * 0: 서빙대 도착 전
      * 1: 서빙대 도착 후 음식을 받기 전
      * 2: 음식을 받은 후
      */
 
+    public int customerWantedCookState = 1;
+    /**
+     * customerWantedCookState: 원하는 생선 종류
+     * comment: 손님이 원하는 요리정도
+     * code 0: 날생선 상태
+     * code 1: 잘익은 상태
+     * code 2: 탄 상태
+     */
+    
     private Transform _transform;
 
     private Animator _customerAnimator;
@@ -135,5 +145,36 @@ public class CustomerMovement : MonoBehaviour
     public void SetActiveMenuPop(bool isActive)
     {
         transform.GetChild(3).gameObject.SetActive(isActive);
-    } 
+    }
+
+    public int SetCustomerWantedCookState(int paramCode)
+    {
+        customerWantedCookState = paramCode;
+        for (int i=0;i<3;i++)
+        {
+            transform.Find("CustomerMenuCanvas/fish"+i).gameObject.SetActive(i == paramCode?true:false);
+        }
+        return customerWantedCookState;
+    }
+    
+    public int SetRandomCustomerWantedCookState()
+    {
+        int randomWantedCookState = 1;
+        int randomVal = Random.Range(0, 10);
+
+        if (randomVal < 1) // 10%확률로 날생선
+        {
+            randomWantedCookState = 0;
+        } 
+        else if (randomVal < 3) // 20%확률로 탄생선
+        {
+            randomWantedCookState = 2;
+        }
+        else // 70%확률로 잘익은생선
+        {
+            randomWantedCookState = 1;
+        }
+        
+        return SetCustomerWantedCookState(randomWantedCookState);
+    }
 }
