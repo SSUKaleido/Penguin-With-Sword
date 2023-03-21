@@ -36,7 +36,7 @@ namespace CookObject
             if (CurrentPickable == null)
             {
                 _animator.SetTrigger(OpenHash);
-                return Instantiate(ingredientPrefab, Slot.transform.position, Quaternion.identity);
+                //return Instantiate(ingredientPrefab, Slot.transform.position, Quaternion.identity);
             }
 
             var output = CurrentPickable;
