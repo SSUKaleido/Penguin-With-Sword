@@ -176,12 +176,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4132430777291799288}
   - component: {fileID: 1815802210768198101}
-  - component: {fileID: 525346827223690709}
   - component: {fileID: 4232724526181392815}
   - component: {fileID: 8841637801552291521}
   m_Layer: 0
   m_Name: fish
-  m_TagString: Untagged
+  m_TagString: Grabable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -195,7 +194,7 @@ Transform:
   m_GameObject: {fileID: 3608094999648804930}
   m_LocalRotation: {x: -0.50000054, y: -0.5, z: -0.49999952, w: 0.50000006}
   m_LocalPosition: {x: 19.108, y: 5.94, z: 6.303}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 565608627954099283}
@@ -222,20 +221,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!64 &525346827223690709
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3608094999648804930}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!65 &4232724526181392815
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -271,6 +256,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 9064d4d27577b44478784b82f817927f, type: 2}
   - {fileID: 2100000, guid: ee0d709ef0f911446ba7c024dfb5498a, type: 2}
   cookState: 0
+  cookTime: 0
   wellcookTime: 5
   overcookTime: 10
 --- !u!1 &4427378887905620919

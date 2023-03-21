@@ -11,6 +11,8 @@ TagManager:
   - CustomerWaypointsExit
   - log
   - Pan
+  - DiveTrigger
+  - Grabable
   layers:
   - Default
   - TransparentFX

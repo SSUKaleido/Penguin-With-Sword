@@ -64,7 +64,14 @@ public class PoolManager : MonoBehaviour
                 initCustomerMovement.SetActiveMenuPop(true);
                 initCustomerMovement.SetRandomCustomerWantedCookState();
                 break;
-            // case 1: break;
+            case 1: 
+                Fish initFish;
+                // selectedGameObject.transform.position = <transform>.position; 위치 초기화 없음
+                initFish = selectedGameObject.GetComponent<Fish>();
+                initFish.cookTime = 0;
+                initFish.cookState = 0;
+                initFish.RawMat();
+                break;
         }
 
         return selectedGameObject;

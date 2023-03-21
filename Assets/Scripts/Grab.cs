@@ -9,17 +9,22 @@ public class Grab : MonoBehaviour
 {
     public GameObject grabSlot;
     private bool canpickup;
-    [SerializeField]private GameObject ObjectIwantToPickUp;
+    private bool canobjectpool;
+    [SerializeField] private GameObject ObjectIwantToPickUp;
+    [SerializeField] private int IndexIwantToObjectPool;
     private bool hasItem;
     private Transform pickupObjectParent;
-    public float lerpSpeed;
     private Vector3 GrabVector;
     private GameObject ObjectIPickedUp;
 
-    private Animator _playerAnimator;
+    [SerializeField]private Animator _playerAnimator;
+    private PoolManager _poolManager;
+    
+    private List<Transform> objectsInRange = new List<Transform>();
     void Start()
     {
-        _playerAnimator = pickupObjectParent.GetComponentInChildren<Animator>();
+        _playerAnimator = transform.parent.GetComponentInChildren<Animator>();
+        _poolManager = GameObject.Find("PoolManager").GetComponent<PoolManager>();
         canpickup = false;
         hasItem = false;
     }
@@ -47,16 +52,30 @@ public class Grab : MonoBehaviour
                     ObjectIwantToPickUp.GetComponent<Rigidbody>().isKinematic = true;
                     ObjectIwantToPickUp.GetComponent<Collider>().isTrigger = true;
                     hasItem = true;
+                    _playerAnimator.SetBool("IsWithObject", hasItem);
+                }
+                else if (canobjectpool == true)//근처에 있는 오브젝트 풀업 하기
+                {
+                    ObjectIwantToPickUp = _poolManager.Get(IndexIwantToObjectPool);
+                    pickupObjectParent = ObjectIwantToPickUp.transform.parent;
+                    // ObjectIwantToPickUp.transform.position = Vector3.Slerp(ObjectIwantToPickUp.transform.position,grabSlot.transform.position,0.9f);
+                    ObjectIwantToPickUp.transform.position = grabSlot.transform.position;
+                    ObjectIwantToPickUp.transform.parent = grabSlot.transform;
+                    ObjectIwantToPickUp.GetComponent<Rigidbody>().isKinematic = true;
+                    ObjectIwantToPickUp.GetComponent<Collider>().isTrigger = true;
+                    hasItem = true;
+                    _playerAnimator.SetBool("IsWithObject", hasItem);
                 }
             }
         }
-        
     }
     
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("log"))
+        if(other.gameObject.CompareTag("log") || other.gameObject.CompareTag("Grabable"))
         {
+            float distance = Vector3.Distance(transform.position, other.transform.position);
+            
             Debug.Log("OnTriggerEnter: Found log");
             canpickup = true;
             if (hasItem == false)
@@ -69,11 +88,29 @@ public class Grab : MonoBehaviour
                 Debug.Log("Has An Item. You Should drop your item with Key 'Q'");
             }
         }
+
+        if (other.gameObject.CompareTag("DiveTrigger"))
+        {
+            canobjectpool = true;
+            if (hasItem == false)
+            {
+                IndexIwantToObjectPool = 1;
+                Debug.Log("You can pick up Item with Key"+"e");
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         Debug.Log("OnTriggerExit: Can Pickup False");
-        canpickup = false;
+        if(other.gameObject.CompareTag("log") || other.gameObject.CompareTag("Grabable"))
+        {
+            canpickup = false;
+        }
+
+        if (other.gameObject.CompareTag("DiveTrigger"))
+        {
+            canobjectpool = false;
+        }
     }                           
 }
