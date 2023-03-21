@@ -66,13 +66,17 @@ public class Fish : MonoBehaviour
     // 조리 완료 Material 변경 함수
     public void CookedMat()
     {
-        transform.GetComponent<MeshRenderer>().material = matbody[1];
-        transform.GetComponent<MeshRenderer>().material = matfin[1];
+        GetComponentsInChildren<MeshRenderer>()[0].material = matbody[1];
+        GetComponentsInChildren<MeshRenderer>()[1].material = matfin[1];
+        GetComponentsInChildren<MeshRenderer>()[2].material = matfin[1];
+        GetComponentsInChildren<MeshRenderer>()[3].material = matfin[1];
     }
     // 재료 불탐 Material 변경 함수
     public void BurntMat()
     {
-        transform.GetComponent<MeshRenderer>().material = matbody[2];
-        transform.GetComponent<MeshRenderer>().material = matfin[2];
+        GetComponentsInChildren<MeshRenderer>()[0].material = matbody[2];
+        GetComponentsInChildren<MeshRenderer>()[1].material = matfin[2];
+        GetComponentsInChildren<MeshRenderer>()[2].material = matfin[2];
+        GetComponentsInChildren<MeshRenderer>()[3].material = matfin[2];
     }
 }
