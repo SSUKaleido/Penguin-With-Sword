@@ -25,12 +25,16 @@ public class CustomerMovement : MonoBehaviour
      */
 
     private Transform _transform;
+
+    private Animator _customerAnimator;
+    
     // Start is called before the first frame update
     void Start()
     {
         _transform = GetComponent<Transform>();
         _customerWaypointEnter = GameObject.FindGameObjectWithTag("CustomerWaypointsEnter").GetComponent<CustomerWaypoint>();
         _customerWaypointExit = GameObject.FindGameObjectWithTag("CustomerWaypointsExit").GetComponent<CustomerWaypoint>();
+        _customerAnimator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -89,6 +93,9 @@ public class CustomerMovement : MonoBehaviour
                 }
             }
         }
+        
+        //애니메이션 컨트롤
+        _customerAnimator.SetFloat("Velocity", speed * (customerStateCode == 0 || customerStateCode == 2 ? 1 : 0));
     }
 
     public float GetSpeed()
