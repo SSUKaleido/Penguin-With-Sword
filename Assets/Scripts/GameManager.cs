@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private int maxHeart = 3;
+    private float currTime;
     private int curentHeart;
     [FormerlySerializedAs("txt_HpArray")] [SerializeField] private Transform[] hpArray;
     
@@ -23,9 +24,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        currTime += Time.deltaTime;
+        if (currTime > 5)
         {
             SpawnCustomer();
+            currTime = 0;
         }
     }
 
