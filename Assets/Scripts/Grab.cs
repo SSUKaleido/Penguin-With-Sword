@@ -46,7 +46,11 @@ public class Grab : MonoBehaviour
             }
             else
             {
-                if (closestObject.CompareTag("log") || closestObject.CompareTag("Grabable"))//근처에 있는 거 줍기
+                if (!closestObject)
+                {
+                    //예외 처리
+                }
+                else if (closestObject.CompareTag("log") || closestObject.CompareTag("Grabable"))//근처에 있는 거 줍기
                 {
                     GrabClosestObject(closestObject);
                 }
