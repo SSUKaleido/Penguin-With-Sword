@@ -8,7 +8,9 @@ using UnityEngine;
 public class Fish : MonoBehaviour
 {
     //변수
+    private GameManager _gameManager;
     public bool cookable;
+    public bool isServing;
     public Material[] matbody = new Material[3];
     public Material[] matfin = new Material[3];
     /**
@@ -21,12 +23,15 @@ public class Fish : MonoBehaviour
     public int cookState = 0;
     
     public float cookTime = 0.0f;
-
     public float wellcookTime = 5f;
     public float overcookTime = 10f;
 
+    public float servingTime = 0.0f;
+    public float servingFinishTime = 0.5f;
+
     private void Start()
     {
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         cookState = 0;
         RawMat();
     }
@@ -37,6 +42,12 @@ public class Fish : MonoBehaviour
         if (cookable)
         {
             cookTime += Time.deltaTime;
+        }
+
+        // update안에서 if 배식대(서빙대) 위면 Time.deltaTime을 서빙시간에 +=
+        if (isServing)
+        {
+            servingTime += Time.deltaTime;
         }
 
         // 조리된 총 시간 합이 생선 종류 경계 일때마다
@@ -69,6 +80,22 @@ public class Fish : MonoBehaviour
                 cookState = 2;
             }
         }
+
+        if (servingTime > servingFinishTime) // 서빙 시간이 끝나면 
+        {
+            // 손님 주문 비교판정 함수 호출
+            //정상호출 시
+            if (_gameManager.ServingCustomer(cookState))
+            {
+                // 해당 오브젝트 비활성화
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                // 실패시 다시 서빙시간 기다림
+                servingTime = 0f;
+            }
+        }
     }
 
     // cookable 제어 관련
@@ -79,6 +106,10 @@ public class Fish : MonoBehaviour
         {
             cookable = true;
         }
+        else if (other.CompareTag("Servertable"))
+        {
+            isServing = true;
+        }
     }
     // Pan 콜라이더에서 나가면
     private void OnTriggerExit(Collider other)
@@ -86,6 +117,10 @@ public class Fish : MonoBehaviour
         if (other.CompareTag("Pan"))
         {
             cookable = false;
+        }
+        else if (other.CompareTag("Servertable"))
+        {
+            isServing = false;
         }
     }
     // 조리 완료 Material 변경 함수

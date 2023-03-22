@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private int maxHeart = 3;
+    private int curentHeart;
+    [FormerlySerializedAs("txt_HpArray")] [SerializeField] private Transform[] hpArray;
+    
     public GameObject[] Customers;
 
     public GameObject PoolManager;
     // Start is called before the first frame update
     void Start()
     {
-        
+        curentHeart = maxHeart;
+        UpdateHeartStatus();
     }
 
     // Update is called once per frame
@@ -20,10 +27,6 @@ public class GameManager : MonoBehaviour
         {
             SpawnCustomer();
         }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            ServingCustomer();
-        }
     }
 
     public void SpawnCustomer()
@@ -31,7 +34,7 @@ public class GameManager : MonoBehaviour
         PoolManager.GetComponent<PoolManager>().Get(0);
     }
 
-    public void ServingCustomer()
+    public bool ServingCustomer(int cookState)
     {
         Customers = GameObject.FindGameObjectsWithTag("Customer");
         foreach (var _gameObject in Customers)
@@ -41,10 +44,61 @@ public class GameManager : MonoBehaviour
             {
                 if (_customerMovement.GetCustomerStateCode() == 1)
                 {
+                    // 주문과 서빙 비교 로직
+                    if (cookState == _customerMovement.customerWantedCookState)
+                    {
+                        //성공
+                        Debug.Log("서빙 성공!!!");
+                    }
+                    else
+                    {
+                        //실패
+                        Debug.Log("서빙 실패!!!");
+
+                        ReduceHeart();
+                    }
+                    
                     _customerMovement.SetSpeed(10);
                     _customerMovement.SetCustomerStateCode(2);
+
+                    return true;
                 }
             }
         }
+        return false;
+    }
+
+    void UpdateHeartStatus()
+    {
+        for (int i=0; i < hpArray.Length; i++)
+        {
+            if (i<curentHeart)
+            {
+                hpArray[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                hpArray[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public void ReduceHeart()
+    {
+        if (curentHeart <= 1)
+        {
+            GameOver();
+        }
+        else
+        {
+            curentHeart -= 1;
+            UpdateHeartStatus();
+        }
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("게임오버!!!");
+        // TODO: 게임오버 로직 구현
     }
 }

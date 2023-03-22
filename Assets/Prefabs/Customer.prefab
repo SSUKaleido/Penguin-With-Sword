@@ -130,7 +130,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1932917744133025862}
-  - component: {fileID: 6429314166145150079}
   m_Layer: 0
   m_Name: fish2
   m_TagString: Untagged
@@ -158,30 +157,6 @@ Transform:
   m_Father: {fileID: 7286209269056858390}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6429314166145150079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1267986353789430524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b74941720fa439ca323d823cfa4b811, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cookable: 0
-  matbody:
-  - {fileID: 2100000, guid: 1fb15b6ac55d3d04490616b916d0ba32, type: 2}
-  - {fileID: 2100000, guid: 257730bfa6559fc4dbb45f45753a2612, type: 2}
-  - {fileID: 2100000, guid: 8d9f3774821d2dc4ba85e9b179beb8df, type: 2}
-  matfin:
-  - {fileID: 2100000, guid: 3989381d53ca4664a9b53bfa0fcb1f7f, type: 2}
-  - {fileID: 2100000, guid: 9064d4d27577b44478784b82f817927f, type: 2}
-  - {fileID: 2100000, guid: ee0d709ef0f911446ba7c024dfb5498a, type: 2}
-  cookState: 0
-  wellcookTime: 5
-  overcookTime: 10
 --- !u!1 &1297702712852238531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1303,7 +1278,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7934743045455149883}
-  - component: {fileID: 3312194783899035394}
   m_Layer: 0
   m_Name: fish0
   m_TagString: Untagged
@@ -1331,30 +1305,6 @@ Transform:
   m_Father: {fileID: 7286209269056858390}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3312194783899035394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7302039711888613761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b74941720fa439ca323d823cfa4b811, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cookable: 0
-  matbody:
-  - {fileID: 2100000, guid: 1fb15b6ac55d3d04490616b916d0ba32, type: 2}
-  - {fileID: 2100000, guid: 257730bfa6559fc4dbb45f45753a2612, type: 2}
-  - {fileID: 2100000, guid: 8d9f3774821d2dc4ba85e9b179beb8df, type: 2}
-  matfin:
-  - {fileID: 2100000, guid: 3989381d53ca4664a9b53bfa0fcb1f7f, type: 2}
-  - {fileID: 2100000, guid: 9064d4d27577b44478784b82f817927f, type: 2}
-  - {fileID: 2100000, guid: ee0d709ef0f911446ba7c024dfb5498a, type: 2}
-  cookState: 0
-  wellcookTime: 5
-  overcookTime: 10
 --- !u!1 &7373464029724147462
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,7 +1617,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7287492325550932396}
-  - component: {fileID: 2794702308090813845}
   m_Layer: 0
   m_Name: fish1
   m_TagString: Untagged
@@ -1695,30 +1644,6 @@ Transform:
   m_Father: {fileID: 7286209269056858390}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2794702308090813845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7956047465636502294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b74941720fa439ca323d823cfa4b811, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cookable: 0
-  matbody:
-  - {fileID: 2100000, guid: 1fb15b6ac55d3d04490616b916d0ba32, type: 2}
-  - {fileID: 2100000, guid: 257730bfa6559fc4dbb45f45753a2612, type: 2}
-  - {fileID: 2100000, guid: 8d9f3774821d2dc4ba85e9b179beb8df, type: 2}
-  matfin:
-  - {fileID: 2100000, guid: 3989381d53ca4664a9b53bfa0fcb1f7f, type: 2}
-  - {fileID: 2100000, guid: 9064d4d27577b44478784b82f817927f, type: 2}
-  - {fileID: 2100000, guid: ee0d709ef0f911446ba7c024dfb5498a, type: 2}
-  cookState: 0
-  wellcookTime: 5
-  overcookTime: 10
 --- !u!1001 &7691673998135192883
 PrefabInstance:
   m_ObjectHideFlags: 0

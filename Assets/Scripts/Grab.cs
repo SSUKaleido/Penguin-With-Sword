@@ -133,6 +133,7 @@ public class Grab : MonoBehaviour
         grabObject.parent = grabSlot.transform;
         grabObject.GetComponent<Rigidbody>().isKinematic = true;
         grabObject.GetComponent<Collider>().isTrigger = true;
+        grabObject.GetComponent<Collider>().enabled = false;
         pickedObject = grabObject;
         closestObject = null;
         hasItem = true;
@@ -148,6 +149,7 @@ public class Grab : MonoBehaviour
         pickedObject.parent = pickupObjectParent;
         pickedObject.GetComponent<Collider>().isTrigger = false;
         pickedObject.GetComponent<Rigidbody>().isKinematic = false;
+        pickedObject.GetComponent<Collider>().enabled = true;
         hasItem = false;
         _playerAnimator.SetBool("IsWithObject", hasItem);
     }

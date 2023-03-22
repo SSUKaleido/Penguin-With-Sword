@@ -70,6 +70,9 @@ public class PoolManager : MonoBehaviour
                 initFish = selectedGameObject.GetComponent<Fish>();
                 initFish.cookTime = 0;
                 initFish.cookState = 0;
+                initFish.cookable = false;
+                initFish.servingTime = 0;
+                initFish.isServing = false;
                 initFish.RawMat();
                 break;
         }
