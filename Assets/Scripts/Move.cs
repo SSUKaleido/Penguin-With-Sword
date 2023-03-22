@@ -26,7 +26,6 @@ public class Move : MonoBehaviour
     {
         //camPlayer = camera.transform.position - this.transform.position;
         rigidbody = this.GetComponent<Rigidbody>();
-
         _playerAnimator = this.GetComponentInChildren<Animator>();
     }
 
