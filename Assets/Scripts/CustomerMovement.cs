@@ -86,6 +86,7 @@ public class CustomerMovement : MonoBehaviour
             //음식을 받은 후
             else if (customerStateCode == 2)
             {
+                StartCoroutine(FoodGiven());
                 //말풍선 제거 로직 필요
                 SetActiveMenuPop(false);
                 
@@ -176,5 +177,10 @@ public class CustomerMovement : MonoBehaviour
         }
         
         return SetCustomerWantedCookState(randomWantedCookState);
+    }
+
+    IEnumerator FoodGiven()
+    {
+        yield return new WaitForSeconds(1.0f);
     }
 }
