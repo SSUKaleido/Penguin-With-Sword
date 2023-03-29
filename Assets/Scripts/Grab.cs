@@ -56,7 +56,7 @@ public class Grab : MonoBehaviour
                 }
                 else if (closestObject.CompareTag("DiveTrigger"))//근처에 있는 오브젝트 풀업 하기
                 {
-                    _playerAnimator.SetTrigger("DiveTriggerOn");
+                    //_playerAnimator.SetTrigger("DiveTriggerOn");
                     GrabClosestObject(_poolManager.Get(1).transform);
                 }
             }
