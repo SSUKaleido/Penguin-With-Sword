@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private int maxHeart = 3;
