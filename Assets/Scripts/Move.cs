@@ -20,18 +20,18 @@ public class Move : MonoBehaviour
 
     public LayerMask layer;
 
-    //private Vector3 camPlayer;
+    private Vector3 camPlayer;
     
     private void Start()
     {
-        //camPlayer = camera.transform.position - this.transform.position;
+        camPlayer = camera.transform.position - this.transform.position;
         rigidbody = this.GetComponent<Rigidbody>();
         _playerAnimator = this.GetComponentInChildren<Animator>();
     }
 
     void Update()
     {
-        //camera.transform.position = this.transform.position + camPlayer;
+        camera.transform.position = this.transform.position + camPlayer;
         
         dir.x = Input.GetAxisRaw("Horizontal");
         dir.z = Input.GetAxisRaw("Vertical");
