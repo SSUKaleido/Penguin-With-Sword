@@ -12,6 +12,10 @@ public class PoolManager : MonoBehaviour
     private List<GameObject>[] pools;
 
     private Transform CustomerWaypointsTransform;
+
+    private int fishGenTime;
+    private int customerGenTime;
+    
     private void Awake()
     {
         pools = new List<GameObject>[prefabs.Length];
@@ -20,6 +24,9 @@ public class PoolManager : MonoBehaviour
         {
             pools[index] = new List<GameObject>();
         }
+
+        fishGenTime = PlayerPrefs.GetInt("fishGenTime");
+        customerGenTime = PlayerPrefs.GetInt("customerGenTime");
         
         CustomerWaypointsTransform = GameObject.FindGameObjectWithTag("CustomerWaypointsEnter").GetComponent<Transform>();
     }
@@ -63,6 +70,7 @@ public class PoolManager : MonoBehaviour
                 initCustomerMovement.waypointExitIndex = 0;
                 initCustomerMovement.SetActiveMenuPop(true);
                 initCustomerMovement.SetRandomCustomerWantedCookState();
+                customerGenTime++;
                 break;
             case 1: 
                 Fish initFish;
@@ -74,9 +82,20 @@ public class PoolManager : MonoBehaviour
                 initFish.servingTime = 0;
                 initFish.isServing = false;
                 initFish.RawMat();
+                fishGenTime++;
                 break;
         }
 
         return selectedGameObject;
+    }
+
+    public int GetFishGenTime()
+    {
+        return fishGenTime;
+    }
+    
+    public int GetCustomerGenTime()
+    {
+        return customerGenTime;
     }
 }

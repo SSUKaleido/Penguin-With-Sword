@@ -24,18 +24,24 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float alpha;
     //public GameObject Canvas;
-    
+
+    private float playTime;
     // Start is called before the first frame update
     void Start()
     {
         curentHeart = maxHeart;
         UpdateHeartStatus();
         //alpha = QuitCanvas.GetComponent<CanvasGroup>().alpha;
+
+        playTime = PlayerPrefs.GetFloat("playTime");
+        Debug.Log("gameOverTimes : "+(PlayerPrefs.GetInt("gameOverTimes")));
+        Debug.Log("playTime : "+playTime);
     }
 
     // Update is called once per frame
     void Update()
     {
+        playTime += Time.deltaTime;
         currTime += Time.deltaTime;
         if (currTime > 5)
         {
@@ -108,6 +114,15 @@ public class GameManager : MonoBehaviour
         if (curentHeart <= 0)
         {
             GameOver();
+            PlayerPrefs.SetInt("gameOverTimes",PlayerPrefs.GetInt("gameOverTimes")+1);
+            Debug.Log("gameOverTimes : "+(PlayerPrefs.GetInt("gameOverTimes")));
+            PlayerPrefs.SetFloat("playTime", playTime);
+            Debug.Log("playTime : "+playTime);
+            PlayerPrefs.SetInt("fishGenTime", PoolManager.GetComponent<PoolManager>().GetFishGenTime());
+            Debug.Log("fishGenTime : " + PoolManager.GetComponent<PoolManager>().GetFishGenTime());
+            PlayerPrefs.SetInt("customerGenTime", PoolManager.GetComponent<PoolManager>().GetCustomerGenTime());
+            Debug.Log("customerGenTime : " + PoolManager.GetComponent<PoolManager>().GetCustomerGenTime());
+            PlayerPrefs.Save();
         }
         else
         {
