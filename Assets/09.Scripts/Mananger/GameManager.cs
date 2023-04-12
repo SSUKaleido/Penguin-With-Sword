@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public GameObject QuitCanvas;
     public bool isDone=false;
 
+    public GameOverScreen GameOverScreen;
+
     [SerializeField] private float alpha;
     //public GameObject Canvas;
     
@@ -116,7 +118,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("게임오버!!!");
-
+        GameOverScreen.Setup();
         // TODO: 게임오버 로직 구현
         isDone = true;
         
