@@ -19,10 +19,10 @@ public class CustomerFrontCheck : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter : " + other.tag);
+        // Debug.Log("OnTriggerEnter : " + other.tag);
         if (other.CompareTag("Customer"))
         {
-            Debug.Log("SetSpeed : " + other.tag);
+            // Debug.Log("SetSpeed : " + other.tag);
             originSpeed = _customerMovement.GetSpeed();
             _customerMovement.SetSpeed(0f);
         }
