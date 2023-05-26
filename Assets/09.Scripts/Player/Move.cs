@@ -39,6 +39,11 @@ public class Move : MonoBehaviour
         
         // _playerAnimator.Parameter변경
         _playerAnimator.SetFloat("ForwardVelocity", dir.magnitude);
+
+        if (Input.GetKeyDown("r"))
+        {
+            _playerAnimator.SetTrigger("Smash");
+        }
     }
 
     private void FixedUpdate()

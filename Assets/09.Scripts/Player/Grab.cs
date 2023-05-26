@@ -54,10 +54,20 @@ public class Grab : MonoBehaviour
                 {
                     GrabClosestObject(closestObject);
                 }
-                else if (closestObject.CompareTag("DiveTrigger"))//근처에 있는 오브젝트 풀업 하기
+                else if (closestObject.CompareTag("DiveTrigger")) //근처에 있는 오브젝트 풀업 하기
                 {
                     //_playerAnimator.SetTrigger("DiveTriggerOn");
                     GrabClosestObject(_poolManager.Get(1).transform);
+                }
+                else if (closestObject.CompareTag("Captain")) //선장 꺠우기
+                {
+                    _playerAnimator.SetTrigger("Smash");
+                    // Debug.Log("closestObject:"+closestObject.ToString());
+                    Captain captain =  closestObject.GetComponent<Captain>();
+                    if (captain.isSleeping)
+                    {
+                        captain.CaptainAwake();
+                    }
                 }
             }
         }
@@ -65,7 +75,7 @@ public class Grab : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerExit: Can Pickup False");
+        // Debug.Log("OnTriggerExit: Can Pickup False");
         if (hasItem)
         {
             if (other.gameObject.CompareTag("Servertable")
@@ -78,7 +88,8 @@ public class Grab : MonoBehaviour
         {
             if (other.gameObject.CompareTag("log")
                 || other.gameObject.CompareTag("Grabable")
-                || other.gameObject.CompareTag("DiveTrigger"))
+                || other.gameObject.CompareTag("DiveTrigger")
+                || other.gameObject.CompareTag("Captain"))
             {
                 closestObject = null;
             }
@@ -99,7 +110,8 @@ public class Grab : MonoBehaviour
         {
             if (other.gameObject.CompareTag("log")
                 || other.gameObject.CompareTag("Grabable")
-                || other.gameObject.CompareTag("DiveTrigger"))
+                || other.gameObject.CompareTag("DiveTrigger")
+                || other.gameObject.CompareTag("Captain"))
             {
                 SetClosestObject(other);
             }
