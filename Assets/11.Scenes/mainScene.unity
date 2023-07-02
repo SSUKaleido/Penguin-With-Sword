@@ -1272,6 +1272,7 @@ MonoBehaviour:
   isSleeping: 0
   dangerPeriod: 10
   sleepingPeriod: 10
+  _gameManager: {fileID: 1397521221}
 --- !u!4 &796494710
 Transform:
   m_ObjectHideFlags: 0
@@ -2217,6 +2218,10 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 487800469}
+    - target: {fileID: 5777079020410991128, guid: e3b218071ceed1241899063e4d0175e2, type: 3}
+      propertyPath: moveSpeed
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5777079020410991129, guid: e3b218071ceed1241899063e4d0175e2, type: 3}
       propertyPath: m_RootOrder
       value: 9

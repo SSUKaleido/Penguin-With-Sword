@@ -38,6 +38,11 @@ public class CustomerMovement : MonoBehaviour
 
     private Animator _customerAnimator;
     
+    public float customerMaxWaitTime = 20f;
+    public float customerWaitTime = 0f;
+    
+    public GameManager _gameManager;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +50,7 @@ public class CustomerMovement : MonoBehaviour
         _customerWaypointEnter = GameObject.FindGameObjectWithTag("CustomerWaypointsEnter").GetComponent<CustomerWaypoint>();
         _customerWaypointExit = GameObject.FindGameObjectWithTag("CustomerWaypointsExit").GetComponent<CustomerWaypoint>();
         _customerAnimator = GetComponentInChildren<Animator>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -107,6 +113,17 @@ public class CustomerMovement : MonoBehaviour
         
         //애니메이션 컨트롤
         _customerAnimator.SetFloat("Velocity", speed * (customerStateCode == 0 || customerStateCode == 2 ? 1 : 0));
+
+        customerWaitTime += Time.deltaTime;
+        if (customerWaitTime > customerMaxWaitTime && customerStateCode != 2)
+        {
+            customerStateCode = 2;
+            speed = 10f;
+            
+            //TODO: 미션실패(손님 분노) 효과 필요
+            
+            _gameManager.ReduceHeart();
+        }
     }
 
     public float GetSpeed()

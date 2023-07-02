@@ -17,9 +17,10 @@ public class Captain : MonoBehaviour
     private float _wakeTime = 0f;
     
     private Animator _captainAnimator;
-    
+
+    public GameManager _gameManager;
     void Start()
-    {
+    {   
         //애니메이터 불러오기
         _captainAnimator = GetComponentInChildren<Animator>();
     }
@@ -34,7 +35,8 @@ public class Captain : MonoBehaviour
             }
             else
             {
-                // TODO: 1회 실패 연출 및 생명력 감소
+                // TODO: 실패 연출
+                _gameManager.ReduceHeart();
                 CaptainAwake();
             }
         }
@@ -56,13 +58,17 @@ public class Captain : MonoBehaviour
         _sleepingTime = 0f;
         isSleeping = true;
         _captainAnimator.SetBool("isSleeping",true);
-        return;
     }
+    
     public void CaptainAwake()
     {
+        if (isSleeping)
+        {
+            _gameManager.AddStageScore();
+            PlayerPrefs.SetInt("captainAwakeCount",PlayerPrefs.GetInt("captainAwakeCount")+1);
+            isSleeping = false;
+            _captainAnimator.SetBool("isSleeping",false);
+        }
         _wakeTime = 0f;
-        isSleeping = false;
-        _captainAnimator.SetBool("isSleeping",false);
-        return;
     }
 }

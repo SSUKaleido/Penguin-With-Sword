@@ -2596,6 +2596,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageNumber: 0
+  stageButtonList:
+  - {fileID: 293939288}
+  - {fileID: 1374794940}
+  - {fileID: 348848189}
+  - {fileID: 1439007853}
+  - {fileID: 1562219079}
+  - {fileID: 1651106609}
+  - {fileID: 1194531301}
+  - {fileID: 826353642}
+  - {fileID: 1155701226}
+  - {fileID: 1665450417}
 --- !u!4 &1399373228
 Transform:
   m_ObjectHideFlags: 0

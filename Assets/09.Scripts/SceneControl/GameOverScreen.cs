@@ -18,6 +18,6 @@ public class GameOverScreen : MonoBehaviour
 
     public void QuitButton()
     {
-        SceneManager.LoadScene("Start");
+        SceneManager.LoadScene("StageSelectScene");
     }
 }
