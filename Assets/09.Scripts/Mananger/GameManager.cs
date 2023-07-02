@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject gameOverText;
     [SerializeField] private int maxHeart = 3;
+    [SerializeField] private float maxTime = 60f;
+    private float timeLeft;
+    private Image timerBar;
     private float currTime;
     [SerializeField]
     private int curentHeart;
@@ -16,9 +21,11 @@ public class GameManager : MonoBehaviour
     public GameObject[] Customers;
 
     public GameObject PoolManager;
-
-    public GameObject QuitCanvas;
-    public bool isDone=false;
+    public GameObject gameOverUI;
+    public GameObject gameCompleteUI;
+    public bool isDone = false;
+    
+    
 
     [SerializeField] private float alpha;
     //public GameObject Canvas;
@@ -26,6 +33,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        timerBar = GetComponent<Image>();
+        timeLeft = maxTime;
         curentHeart = maxHeart;
         UpdateHeartStatus();
         //alpha = QuitCanvas.GetComponent<CanvasGroup>().alpha;
@@ -43,8 +52,22 @@ public class GameManager : MonoBehaviour
 
         if (isDone == true)
         {
-            QuitCanvas.SetActive(true);
+            GameOver();
         }
+
+        if (timeLeft > 0)
+        {
+            timeLeft -= Time.deltaTime;
+            timerBar.fillAmount = timeLeft / maxTime;
+        }
+        else
+        {
+            {
+                Time.timeScale = 0;
+                GameComplete();
+            }
+        }
+        // 여기에 점수 업데이트 만들어놓기.
     }
 
     public void SpawnCustomer()
@@ -113,17 +136,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void UpdatePoint()
+    {
+        // 점수 실시간 업데이트 ㄱㄱ
+    }
+
     public void GameOver()
     {
         Debug.Log("게임오버!!!");
-
-        // TODO: 게임오버 로직 구현
-        isDone = true;
-        
-        //GameObject A = Resources.Load("Image") as GameObject;
-        //GameObject B = Instantiate(A);
-        //B.transform.parent = Canvas.transform;
-        //QuitCanvas.GetComponent<CanvasGroup>().alpha = 1;
-        //alpha = 1;
+        gameOverUI.SetActive(true);
     }
+
+    public void GameComplete()
+    {
+        Debug.Log("게임 완료!!!");
+        gameCompleteUI.SetActive(true);
+    }
+
+    public void Restart()
+    {
+        // 레벨 재시작
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void mainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+    
 }
