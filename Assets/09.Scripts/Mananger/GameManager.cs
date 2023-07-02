@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -26,6 +27,11 @@ public class GameManager : MonoBehaviour
     //public GameObject Canvas;
 
     private float playTime;
+
+    private int stageScore = 0;
+
+    private StageManager stageManager;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -34,8 +40,10 @@ public class GameManager : MonoBehaviour
         //alpha = QuitCanvas.GetComponent<CanvasGroup>().alpha;
 
         playTime = PlayerPrefs.GetFloat("playTime");
-        Debug.Log("gameOverTimes : "+(PlayerPrefs.GetInt("gameOverTimes")));
-        Debug.Log("playTime : "+playTime);
+        Debug.Log("gameOverTimes : " + (PlayerPrefs.GetInt("gameOverTimes")));
+        Debug.Log("playTime : " + playTime);
+
+        stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
     }
 
     // Update is called once per frame
@@ -75,6 +83,8 @@ public class GameManager : MonoBehaviour
                     {
                         //성공
                         Debug.Log("서빙 성공!!!");
+                        PlayerPrefs.SetInt("survingSuccessCount",PlayerPrefs.GetInt("survingSuccessCount")+1);
+                        AddStageScore();
                     }
                     else
                     {
@@ -85,13 +95,13 @@ public class GameManager : MonoBehaviour
                     
                     _customerMovement.SetSpeed(10);
                     _customerMovement.SetCustomerStateCode(2);
-
                     return true;
                 }
             }
         }
         return false;
     }
+
 
     void UpdateHeartStatus()
     {
@@ -115,13 +125,9 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
             PlayerPrefs.SetInt("gameOverTimes",PlayerPrefs.GetInt("gameOverTimes")+1);
-            Debug.Log("gameOverTimes : "+(PlayerPrefs.GetInt("gameOverTimes")));
             PlayerPrefs.SetFloat("playTime", playTime);
-            Debug.Log("playTime : "+playTime);
             PlayerPrefs.SetInt("fishGenTime", PoolManager.GetComponent<PoolManager>().GetFishGenTime());
-            Debug.Log("fishGenTime : " + PoolManager.GetComponent<PoolManager>().GetFishGenTime());
             PlayerPrefs.SetInt("customerGenTime", PoolManager.GetComponent<PoolManager>().GetCustomerGenTime());
-            Debug.Log("customerGenTime : " + PoolManager.GetComponent<PoolManager>().GetCustomerGenTime());
             PlayerPrefs.Save();
         }
         else
@@ -142,5 +148,52 @@ public class GameManager : MonoBehaviour
         //B.transform.parent = Canvas.transform;
         //QuitCanvas.GetComponent<CanvasGroup>().alpha = 1;
         //alpha = 1;
+        
+        SaveStageScore();
+    }
+    
+    public void StageClear()
+    {
+        Debug.Log("스테이지 클리어!!!");
+        
+        // TODO: 스테이지 클리어 화면으로 교체필요
+        // GameOverScreen.Setup();
+        
+        // TODO: 스테이지 클리어 로직 구현
+        // isDone = true;
+        if (stageManager)
+        {
+            stageManager.SaveStageClearData();
+            Destroy(GameObject.Find("StageManager"));
+        }
+        else
+        {
+            Debug.Log("stageManager is null");
+        }
+        // SaveStageScore() 사용 필요
+        SaveStageScore();
+        
+
+        //TODO: (임시 스테이지 선택화면으로 이동) 삭제필요
+        SceneManager.LoadScene("StageSelectScene");
+    }
+
+    public void AddStageScore(int gainScore = 10)
+    {
+        stageScore += gainScore;
+    }
+
+    /**
+     * 게임 종료 화면에서 점수(재화) 저장
+     */
+    public void SaveStageScore()
+    {
+        PlayerPrefs.SetInt("userScore", PlayerPrefs.GetInt("userScore") + stageScore);
+        PlayerPrefs.Save();
+        
+        Debug.Log("스테이지 점수 : " + stageScore);
+        Debug.Log("유저가 보유한 포인트 : " + PlayerPrefs.GetInt("userScore"));
+        
+        stageScore = 0;
     }
 }

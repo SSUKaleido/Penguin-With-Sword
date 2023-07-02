@@ -68,6 +68,7 @@ public class PoolManager : MonoBehaviour
                 initCustomerMovement.customerStateCode = 0;
                 initCustomerMovement.waypointEnterIndex = 0;
                 initCustomerMovement.waypointExitIndex = 0;
+                initCustomerMovement.customerWaitTime = 0f;
                 initCustomerMovement.SetActiveMenuPop(true);
                 initCustomerMovement.SetRandomCustomerWantedCookState();
                 customerGenTime++;

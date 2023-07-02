@@ -10,10 +10,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float maxTime = 60f;
     private float timeLeft;
     private Image timerBar;
+    private GameManager _gameManager;
     void Start()
     {
         timerBar = GetComponent<Image>();
         timeLeft = maxTime;
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -27,7 +29,8 @@ public class UIManager : MonoBehaviour
         else
         {
             {
-                Time.timeScale = 0;
+                _gameManager.StageClear();
+                // Time.timeScale = 0;
             }
         }
     }
