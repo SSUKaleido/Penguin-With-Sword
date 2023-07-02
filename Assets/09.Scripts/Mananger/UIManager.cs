@@ -33,5 +33,7 @@ public class UIManager : MonoBehaviour
                 // Time.timeScale = 0;
             }
         }
+        
+        // 여기에 점수 업데이트 만들어놓기
     }
 }
