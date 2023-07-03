@@ -8,11 +8,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject gameOverText;
     [SerializeField] private int maxHeart = 3;
-    [SerializeField] private float maxTime = 60f;
-    private float timeLeft;
-    private Image timerBar;
     private float currTime;
     [SerializeField]
     private int curentHeart;
@@ -25,8 +21,6 @@ public class GameManager : MonoBehaviour
     public GameObject gameCompleteUI;
     public bool isDone = false;
     
-    
-
     public GameOverScreen GameOverScreen;
 
     [SerializeField] private float alpha;
@@ -41,8 +35,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timerBar = GetComponent<Image>();
-        timeLeft = maxTime;
         curentHeart = maxHeart;
         UpdateHeartStatus();
         //alpha = QuitCanvas.GetComponent<CanvasGroup>().alpha;
@@ -68,19 +60,6 @@ public class GameManager : MonoBehaviour
         if (isDone == true)
         {
             GameOver();
-        }
-
-        if (timeLeft > 0)
-        {
-            timeLeft -= Time.deltaTime;
-            timerBar.fillAmount = timeLeft / maxTime;
-        }
-        else
-        {
-            {
-                Time.timeScale = 0;
-                GameComplete();
-            }
         }
         // 여기에 점수 업데이트 만들어놓기.
     }
@@ -191,9 +170,11 @@ public class GameManager : MonoBehaviour
         // SaveStageScore() 사용 필요
         SaveStageScore();
         
+        Debug.Log("게임 완료!!!");
+        gameCompleteUI.SetActive(true);
 
         //TODO: (임시 스테이지 선택화면으로 이동) 삭제필요
-        SceneManager.LoadScene("StageSelectScene");
+        //SceneManager.LoadScene("StageSelectScene");
     }
 
     public void AddStageScore(int gainScore = 10)
@@ -215,12 +196,6 @@ public class GameManager : MonoBehaviour
         stageScore = 0;
     }
 
-    public void GameComplete()
-    {
-        Debug.Log("게임 완료!!!");
-        gameCompleteUI.SetActive(true);
-    }
-
     public void Restart()
     {
         // 레벨 재시작
@@ -229,7 +204,7 @@ public class GameManager : MonoBehaviour
 
     public void mainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("StageSelectScene");
     }
 
     public void QuitGame()
