@@ -119,12 +119,12 @@ public class PlayerTouchMovement : MonoBehaviour
     {
         Vector3 scaledMovement = moveSpeed * Time.deltaTime * new Vector3(MovementAmount.x, 0, MovementAmount.y);
         
-        // Player.transform.LookAt(Player.transform.position + scaledMovement, Vector3.up);
+        Player.transform.LookAt(Player.transform.position + scaledMovement, Vector3.up);
         // Player.Move(scaledMovement);
         rigidbody.MovePosition(Player.gameObject.transform.position + scaledMovement);
     }
 
-    private void OnGUI()
+    /*private void OnGUI()
     {
         GUIStyle labelStyle = new GUIStyle()
         {
@@ -145,5 +145,5 @@ public class PlayerTouchMovement : MonoBehaviour
         }
 
         GUI.Label(new Rect(20, 10, 500, 20), $"Screen Size ({Screen.width}, {Screen.height})", labelStyle);
-    }
+    }*/
 }
