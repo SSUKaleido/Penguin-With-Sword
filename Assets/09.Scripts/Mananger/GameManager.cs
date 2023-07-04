@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -31,6 +33,9 @@ public class GameManager : MonoBehaviour
     private int stageScore = 0;
 
     private StageManager stageManager;
+
+    public GameObject clearTextUi;
+    public GameObject scorePointerUi;
     
     // Start is called before the first frame update
     void Start()
@@ -44,6 +49,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("playTime : " + playTime);
 
         stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
+        // scorePointerUiTextMeshPro = scorePointerUi.GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -57,11 +63,11 @@ public class GameManager : MonoBehaviour
             currTime = 0;
         }
 
-        if (isDone == true)
-        {
-            GameOver();
-        }
-        // 여기에 점수 업데이트 만들어놓기.
+        // if (isDone == true)
+        // {
+        //     GameOver();
+        // }
+        UpdatePoint();
     }
 
     public void SpawnCustomer()
@@ -139,7 +145,8 @@ public class GameManager : MonoBehaviour
 
     public void UpdatePoint()
     {
-        // 점수 실시간 업데이트 ㄱㄱ
+        // scorePointerUiTextMeshPro.text = stageScore + "";
+        scorePointerUi.GetComponent<TextMeshProUGUI>().text = stageScore + "";
     }
 
     public void GameOver()
@@ -152,12 +159,8 @@ public class GameManager : MonoBehaviour
     public void StageClear()
     {
         Debug.Log("스테이지 클리어!!!");
+        clearTextUi.GetComponent<TextMeshProUGUI>().text = "Stage Complete!!!\nYour Score is : " + stageScore;
         
-        // TODO: 스테이지 클리어 화면으로 교체필요
-        // GameOverScreen.Setup();
-        
-        // TODO: 스테이지 클리어 로직 구현
-        // isDone = true;
         if (stageManager)
         {
             stageManager.SaveStageClearData();
@@ -170,11 +173,9 @@ public class GameManager : MonoBehaviour
         // SaveStageScore() 사용 필요
         SaveStageScore();
         
-        Debug.Log("게임 완료!!!");
         gameCompleteUI.SetActive(true);
-
-        //TODO: (임시 스테이지 선택화면으로 이동) 삭제필요
-        //SceneManager.LoadScene("StageSelectScene");
+        
+        
     }
 
     public void AddStageScore(int gainScore = 10)
@@ -200,11 +201,13 @@ public class GameManager : MonoBehaviour
     {
         // 레벨 재시작
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
     }
 
     public void mainMenu()
     {
         SceneManager.LoadScene("StageSelectScene");
+        Time.timeScale = 1;
     }
 
     public void QuitGame()

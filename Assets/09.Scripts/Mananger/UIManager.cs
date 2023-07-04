@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     private float timeLeft;
     private Image timerBar;
     private GameManager _gameManager;
+
+    private bool __FLAG__ = false;
     void Start()
     {
         timerBar = GetComponent<Image>();
@@ -29,11 +31,13 @@ public class UIManager : MonoBehaviour
         else
         {
             {
-                _gameManager.StageClear();
-                // Time.timeScale = 0;
+                if (__FLAG__ == false)
+                {
+                    _gameManager.StageClear();
+                    __FLAG__ = true;
+                    Time.timeScale = 0;
+                }
             }
         }
-        
-        // 여기에 점수 업데이트 만들어놓기
     }
 }
