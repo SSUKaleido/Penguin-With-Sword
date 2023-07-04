@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
                     {
                         //성공
                         Debug.Log("서빙 성공!!!");
-                        PlayerPrefs.SetInt("survingSuccessCount",PlayerPrefs.GetInt("survingSuccessCount")+1);
+                        PlayerPrefs.SetInt("servingSuccessCount",PlayerPrefs.GetInt("servingSuccessCount")+1);
                         AddStageScore();
                     }
                     else
