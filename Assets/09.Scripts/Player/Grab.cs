@@ -5,6 +5,7 @@ using TreeEditor;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Object = System.Object;
 
 public class Grab : MonoBehaviour
@@ -18,15 +19,25 @@ public class Grab : MonoBehaviour
     [SerializeField] private GameObject Model;
     private Animator _ModelAnimator;
 
-    [SerializeField] private GameObject PoolManager;
+    [SerializeField] private GameObject PoolManagerObject;
+    [SerializeField] private Animator _playerAnimator;
     private PoolManager _poolManager;
+    [SerializeField] private GameObject GameManagerObject;
+    public GameManager gameManager;
+
+
+    public GameObject smashParticlePrefab;
+    public Transform particleGroup;
+    private Transform _transform;
 
     [SerializeField] private GameObject InteractionButton;
-    
+
     void Start()
     {
-        _ModelAnimator = transform.parent.GetComponentInChildren<Animator>();
-        _poolManager = PoolManager.GetComponent<PoolManager>();
+        _playerAnimator = transform.parent.GetComponentInChildren<Animator>();
+        _poolManager = PoolManagerObject.GetComponent<PoolManager>();
+        gameManager = GameManagerObject.GetComponent<GameManager>();
+        _transform = transform;
     }
     
     void Update()
@@ -66,11 +77,14 @@ public class Grab : MonoBehaviour
                 }
                 else if (closestObject.CompareTag("Captain")) //선장 꺠우기
                 {
-                    _ModelAnimator.SetTrigger("Smash");
-                    // Debug.Log("closestObject:"+closestObject.ToString());
+                    _playerAnimator.SetTrigger("Smash");
                     Captain captain =  closestObject.GetComponent<Captain>();
+                    
+                    GameObject particleObject = Instantiate(smashParticlePrefab, grabSlot.transform.position, particleGroup.rotation, particleGroup);
+                    particleObject.transform.localScale = new Vector3(2,2,2);
                     if (captain.isSleeping)
                     {
+                        gameManager.AddStageScore();
                         captain.CaptainAwake();
                     }
                 }

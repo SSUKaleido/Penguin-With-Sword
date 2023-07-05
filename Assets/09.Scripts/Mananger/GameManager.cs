@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     
     public GameOverScreen GameOverScreen;
 
+    public Camera mainCamera;
+
     [SerializeField] private float alpha;
     //public GameObject Canvas;
 
@@ -31,6 +33,9 @@ public class GameManager : MonoBehaviour
     private int stageScore = 0;
 
     private StageManager stageManager;
+    
+    public GameObject reduceHeartParticlePrefab;
+    public Transform particleGroup;
     
     // Start is called before the first frame update
     void Start()
@@ -91,7 +96,7 @@ public class GameManager : MonoBehaviour
                     {
                         //실패
                         Debug.Log("서빙 실패!!!");
-                        ReduceHeart();
+                        ReduceHeart(_gameObject.transform.position);
                     }
                     
                     _customerMovement.SetSpeed(10);
@@ -119,7 +124,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ReduceHeart()
+    public void ReduceHeart(Vector3 position)
     {
         curentHeart -= 1;
         if (curentHeart <= 0)
@@ -133,6 +138,9 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            GameObject particleObject = Instantiate(reduceHeartParticlePrefab, position + new Vector3(0,4,0), particleGroup.rotation, particleGroup);
+            particleObject.transform.localScale = new Vector3(2,2,2);
+            particleObject.transform.LookAt(mainCamera.transform);
             UpdateHeartStatus();
         }
     }
