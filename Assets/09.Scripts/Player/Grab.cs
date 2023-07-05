@@ -79,6 +79,7 @@ public class Grab : MonoBehaviour
                 {
                     _playerAnimator.SetTrigger("Smash");
                     Captain captain =  closestObject.GetComponent<Captain>();
+                    SoundManager.instance.PlaySfx(SoundManager.Sfx.penguin_smash);
                     
                     GameObject particleObject = Instantiate(smashParticlePrefab, grabSlot.transform.position, particleGroup.rotation, particleGroup);
                     particleObject.transform.localScale = new Vector3(2,2,2);
