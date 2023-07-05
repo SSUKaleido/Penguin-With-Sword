@@ -6,18 +6,19 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    public GameObject camera;
+    //테스트 시 비활성화 해둠
+    //public GameObject camera;
+    
     private Vector3 camPlayer;
-    //private Vector3 dir = Vector3.zero;
-    //public LayerMask layer;
     
     private void Start()
     {
-        camPlayer = camera.transform.position - this.transform.position;
+        camPlayer = GetComponent<Camera>().transform.position - this.transform.position;
     }
 
     void Update()
     {
-        camera.transform.position = this.transform.position + camPlayer;
+        //테스트 시 비활성화 해둠
+        //camera.transform.position = this.transform.position + camPlayer;
     }
 }
