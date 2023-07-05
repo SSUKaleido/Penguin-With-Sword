@@ -109,6 +109,10 @@ public class CustomerMovement : MonoBehaviour
                     this.gameObject.SetActive(false);
                 }
             }
+            else if (customerStateCode == 1)
+            {
+                transform.LookAt(transform.position + new Vector3(1,0,0));
+            }
         }
         
         //애니메이션 컨트롤
@@ -122,7 +126,7 @@ public class CustomerMovement : MonoBehaviour
             
             //TODO: 미션실패(손님 분노) 효과 필요
             
-            _gameManager.ReduceHeart();
+            _gameManager.ReduceHeart(transform.position);
         }
     }
 
