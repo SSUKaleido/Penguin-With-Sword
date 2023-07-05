@@ -64,6 +64,7 @@ public class Captain : MonoBehaviour
         isSleeping = true;
         _captainAnimator.SetBool("isSleeping",true);
         captainSkinnedMeshRenderer.material = sleepMaterial;
+        SoundManager.instance.PlaySfx(SoundManager.Sfx.SleepingCaptain);
     }
     
     public void CaptainAwake()
