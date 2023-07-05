@@ -29,10 +29,11 @@ public class PlayerTouchMovement : MonoBehaviour
     private Animator ModelAnimator;
     
     private Finger buttonClickFinger;
-    private bool isInteracitonButtonOn=false;
+    
+    public bool isInteractionButtonOn=false;
     
     [SerializeField]
-    private GameObject InteractionButton;
+    public GameObject InteractionButton;
     private RectTransform buttonRectTransform;
     
     private void OnEnable()
@@ -93,7 +94,7 @@ public class PlayerTouchMovement : MonoBehaviour
             buttonClickFinger = null;
             Joystick.RectTransform.anchoredPosition = Vector2.zero; 
             InteractionButton.gameObject.SetActive(false);
-            isInteracitonButtonOn = false;
+            isInteractionButtonOn = false;
         }
     }
 
@@ -112,7 +113,7 @@ public class PlayerTouchMovement : MonoBehaviour
             buttonClickFinger = TouchedFinger;
             InteractionButton.gameObject.SetActive(true);
             buttonRectTransform.position = TouchedFinger.screenPosition;
-            isInteracitonButtonOn = true;
+            isInteractionButtonOn = true;
         }
     }
 
@@ -158,7 +159,6 @@ public class PlayerTouchMovement : MonoBehaviour
     {
         ModelAnimator.SetBool("isWalking",MovementAmount.magnitude > 0);
     }
-    
     /*private void OnGUI()
     {
         GUIStyle labelStyle = new GUIStyle()

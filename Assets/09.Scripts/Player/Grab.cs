@@ -17,33 +17,33 @@ public class Grab : MonoBehaviour
     [SerializeField] private Transform closestObject = null;
 
     [SerializeField] private GameObject Model;
-    private Animator _ModelAnimator;
-
+    private Animator _playerAnimator;
+    
     [SerializeField] private GameObject PoolManagerObject;
-    [SerializeField] private Animator _playerAnimator;
     private PoolManager _poolManager;
+    
     [SerializeField] private GameObject GameManagerObject;
     public GameManager gameManager;
 
 
     public GameObject smashParticlePrefab;
     public Transform particleGroup;
-    private Transform _transform;
 
     [SerializeField] private GameObject InteractionButton;
-
+    [SerializeField] private GameObject _player;
+    [SerializeField] private bool isButtonPressing=false;
     void Start()
     {
-        _playerAnimator = transform.parent.GetComponentInChildren<Animator>();
+        _playerAnimator = Model.GetComponent<Animator>();
         _poolManager = PoolManagerObject.GetComponent<PoolManager>();
         gameManager = GameManagerObject.GetComponent<GameManager>();
-        _transform = transform;
     }
     
     void Update()
     {
+        isButtonPressing = _player.GetComponent<PlayerTouchMovement>().isInteractionButtonOn;
         //잡고 있을 떈 놓고 잡아야 하는 시스템
-        if (Input.GetKeyDown("e"))
+        if (isButtonPressing)
         {
             if (hasItem == true)//버리기, 놓기
             {
@@ -169,7 +169,7 @@ public class Grab : MonoBehaviour
         pickedObject = grabObject;
         closestObject = null;
         hasItem = true;
-        _ModelAnimator.SetBool("IsWithObject", hasItem);
+        _playerAnimator.SetBool("IsWithObject", hasItem);
     }
 
     void DropPickedObjectObject(Vector3 dropPosition = default)
@@ -183,6 +183,6 @@ public class Grab : MonoBehaviour
         pickedObject.GetComponent<Rigidbody>().isKinematic = false;
         pickedObject.GetComponent<Collider>().enabled = true;
         hasItem = false;
-        _ModelAnimator.SetBool("IsWithObject", hasItem);
+        _playerAnimator.SetBool("IsWithObject", hasItem);
     }
 }
