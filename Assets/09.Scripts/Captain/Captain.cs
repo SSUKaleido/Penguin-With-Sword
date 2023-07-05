@@ -19,10 +19,15 @@ public class Captain : MonoBehaviour
     private Animator _captainAnimator;
 
     public GameManager _gameManager;
+
+    public Material awakeMaterial;
+    public Material sleepMaterial;
+    private SkinnedMeshRenderer captainSkinnedMeshRenderer;
     void Start()
     {   
         //애니메이터 불러오기
         _captainAnimator = GetComponentInChildren<Animator>();
+        captainSkinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
     }
 
     void Update()
@@ -58,6 +63,7 @@ public class Captain : MonoBehaviour
         _sleepingTime = 0f;
         isSleeping = true;
         _captainAnimator.SetBool("isSleeping",true);
+        captainSkinnedMeshRenderer.material = sleepMaterial;
     }
     
     public void CaptainAwake()
@@ -67,7 +73,9 @@ public class Captain : MonoBehaviour
             _gameManager.AddStageScore();
             PlayerPrefs.SetInt("captainAwakeCount",PlayerPrefs.GetInt("captainAwakeCount")+1);
             isSleeping = false;
+            _captainAnimator.SetTrigger("smashCaptain");
             _captainAnimator.SetBool("isSleeping",false);
+            captainSkinnedMeshRenderer.material = awakeMaterial;
         }
         _wakeTime = 0f;
     }
