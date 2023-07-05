@@ -49,6 +49,10 @@ public class GameManager : MonoBehaviour
         Debug.Log("playTime : " + playTime);
 
         stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
+        // scorePointerUiTextMeshPro = scorePointerUi.GetComponent<TextMeshProUGUI>();
+        
+        //메인 BGM 재생
+        SoundManager.instance.PlayBgm(true);
     }
 
     // Update is called once per frame
