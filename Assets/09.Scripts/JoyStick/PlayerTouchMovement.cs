@@ -10,18 +10,23 @@ public class PlayerTouchMovement : MonoBehaviour
     private Vector2 JoystickSize = new Vector2(300, 300);
     [SerializeField]
     private FloatingJoystick Joystick;
-
+    
     [SerializeField]
     private GameObject Player;
     //private object movescript;
 
     private Finger MovementFinger;
+    [SerializeField]
     private Vector2 MovementAmount;
     
     private Rigidbody rigidbody;
     public float rotSpeed;
     public float moveSpeed;
     private Vector3 dir = Vector3.zero;
+
+    [SerializeField]
+    private GameObject Model;
+    private Animator ModelAnimator;
     
     private void OnEnable()
     {
@@ -109,7 +114,11 @@ public class PlayerTouchMovement : MonoBehaviour
 
         return StartPosition;
     }
-    
+
+    private void Awake()
+    {
+        ModelAnimator=Model.GetComponent<Animator>();
+    }
     private void Start()
     {
         rigidbody = this.GetComponent<Rigidbody>();
@@ -118,12 +127,17 @@ public class PlayerTouchMovement : MonoBehaviour
     private void Update()
     {
         Vector3 scaledMovement = moveSpeed * Time.deltaTime * new Vector3(MovementAmount.x, 0, MovementAmount.y);
-        
+        UpdatePlayerWalking();
         Player.transform.LookAt(Player.transform.position + scaledMovement, Vector3.up);
         // Player.Move(scaledMovement);
         rigidbody.MovePosition(Player.gameObject.transform.position + scaledMovement);
     }
 
+    private void UpdatePlayerWalking()
+    {
+        ModelAnimator.SetBool("isWalking",MovementAmount.magnitude > 0);
+    }
+    
     /*private void OnGUI()
     {
         GUIStyle labelStyle = new GUIStyle()
