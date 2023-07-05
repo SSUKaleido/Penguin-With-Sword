@@ -744,6 +744,7 @@ GameObject:
   - component: {fileID: 487800472}
   - component: {fileID: 487800471}
   - component: {fileID: 487800470}
+  - component: {fileID: 487800473}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -817,6 +818,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!165 &487800473
+AudioHighPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487800469}
+  m_Enabled: 1
+  m_CutoffFrequency: 5000
+  m_HighpassResonanceQ: 1
 --- !u!1 &550706509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,6 +1025,8 @@ MonoBehaviour:
   dangerPeriod: 10
   sleepingPeriod: 10
   _gameManager: {fileID: 1397521221}
+  awakeMaterial: {fileID: 0}
+  sleepMaterial: {fileID: 0}
 --- !u!4 &796494710
 Transform:
   m_ObjectHideFlags: 0
@@ -1356,7 +1369,7 @@ AudioSource:
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
-  BypassListenerEffects: 0
+  BypassListenerEffects: 1
   BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
@@ -1439,18 +1452,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef50666b8f923c940a212c8e6897c628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmSounds:
-  - soundName: 1
-    clip: {fileID: 8300000, guid: f7828feb352110e4090417c31ef4508b, type: 3}
-  - soundName: 2
-    clip: {fileID: 8300000, guid: f7828feb352110e4090417c31ef4508b, type: 3}
-  sfxSounds:
-  - soundName: fishcooking
-    clip: {fileID: 8300000, guid: 6e321ef714b8d8048aa82783840b901b, type: 3}
-  - soundName: SleepingCaptain
-    clip: {fileID: 8300000, guid: 8cbebb0a6dd69dc408be07ce3baf2226, type: 3}
-  bgmPlayer: {fileID: 1124897496}
-  sfxPlayer: []
+  bgmClip: {fileID: 8300000, guid: f7828feb352110e4090417c31ef4508b, type: 3}
+  bgmVolume: 0.4
+  sfxClips:
+  - {fileID: 8300000, guid: 33aa8d59d6d701748a52d77f53cbc463, type: 3}
+  - {fileID: 8300000, guid: 6e321ef714b8d8048aa82783840b901b, type: 3}
+  - {fileID: 8300000, guid: ac962d76437acb54cb58c7a215033b39, type: 3}
+  - {fileID: 8300000, guid: 52590a906d906af49a196188f1f576b9, type: 3}
+  - {fileID: 8300000, guid: 63fe4387b35a2b345b156628bb13ed3f, type: 3}
+  - {fileID: 8300000, guid: 8cbebb0a6dd69dc408be07ce3baf2226, type: 3}
+  sfxVolume: 0.5
+  channels: 10
 --- !u!4 &1124897498
 Transform:
   m_ObjectHideFlags: 0
