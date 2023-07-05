@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
-    // Var for Prefab
     public GameObject[] prefabs;
     
-    // Pooling List
     private List<GameObject>[] pools;
 
     private Transform CustomerWaypointsTransform;
