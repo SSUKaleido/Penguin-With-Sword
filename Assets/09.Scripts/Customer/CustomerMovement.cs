@@ -125,7 +125,7 @@ public class CustomerMovement : MonoBehaviour
             speed = 10f;
             
             //TODO: 미션실패(손님 분노) 효과 필요
-            
+            SoundManager.instance.PlaySfx(SoundManager.Sfx.Angry_Penguin);
             _gameManager.ReduceHeart(transform.position);
         }
     }

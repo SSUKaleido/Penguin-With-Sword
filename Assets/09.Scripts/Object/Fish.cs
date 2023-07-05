@@ -12,7 +12,6 @@ public class Fish : MonoBehaviour
     public bool cookable;
     public bool isServing;
     public Material[] matbody = new Material[3];
-    public Material[] matfin = new Material[3];
     /**
      * cookState: 원하는 생선 종류
      * comment: 손님이 원하는 요리정도를 비교하기 위함
@@ -42,6 +41,7 @@ public class Fish : MonoBehaviour
         if (cookable)
         {
             cookTime += Time.deltaTime;
+            //SoundManager.instance.PlaySE("FishCooking");
         }
 
         // update안에서 if 배식대(서빙대) 위면 Time.deltaTime을 서빙시간에 +=
@@ -127,24 +127,15 @@ public class Fish : MonoBehaviour
     public void RawMat()
     {
         GetComponentsInChildren<MeshRenderer>()[0].material = matbody[0];
-        GetComponentsInChildren<MeshRenderer>()[1].material = matfin[0];
-        GetComponentsInChildren<MeshRenderer>()[2].material = matfin[0];
-        GetComponentsInChildren<MeshRenderer>()[3].material = matfin[0];
     }
     // 조리 완료 Material 변경 함수
     public void CookedMat()
     {
         GetComponentsInChildren<MeshRenderer>()[0].material = matbody[1];
-        GetComponentsInChildren<MeshRenderer>()[1].material = matfin[1];
-        GetComponentsInChildren<MeshRenderer>()[2].material = matfin[1];
-        GetComponentsInChildren<MeshRenderer>()[3].material = matfin[1];
     }
     // 재료 불탐 Material 변경 함수
     public void BurntMat()
     {
         GetComponentsInChildren<MeshRenderer>()[0].material = matbody[2];
-        GetComponentsInChildren<MeshRenderer>()[1].material = matfin[2];
-        GetComponentsInChildren<MeshRenderer>()[2].material = matfin[2];
-        GetComponentsInChildren<MeshRenderer>()[3].material = matfin[2];
     }
 }
