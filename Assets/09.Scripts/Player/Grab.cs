@@ -16,18 +16,27 @@ public class Grab : MonoBehaviour
     [SerializeField] private Transform pickupObjectParent;
     [SerializeField] private Transform closestObject = null;
 
+    [SerializeField] private GameObject Model;
+    private Animator _ModelAnimator;
+
+    [SerializeField] private GameObject PoolManagerObject;
     [SerializeField] private Animator _playerAnimator;
     private PoolManager _poolManager;
+    [SerializeField] private GameObject GameManagerObject;
     public GameManager gameManager;
+
 
     public GameObject smashParticlePrefab;
     public Transform particleGroup;
     private Transform _transform;
+
+    [SerializeField] private GameObject InteractionButton;
+
     void Start()
     {
         _playerAnimator = transform.parent.GetComponentInChildren<Animator>();
-        _poolManager = GameObject.Find("PoolManager").GetComponent<PoolManager>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _poolManager = PoolManagerObject.GetComponent<PoolManager>();
+        gameManager = GameManagerObject.GetComponent<GameManager>();
         _transform = transform;
     }
     
@@ -160,7 +169,7 @@ public class Grab : MonoBehaviour
         pickedObject = grabObject;
         closestObject = null;
         hasItem = true;
-        _playerAnimator.SetBool("IsWithObject", hasItem);
+        _ModelAnimator.SetBool("IsWithObject", hasItem);
     }
 
     void DropPickedObjectObject(Vector3 dropPosition = default)
@@ -174,6 +183,6 @@ public class Grab : MonoBehaviour
         pickedObject.GetComponent<Rigidbody>().isKinematic = false;
         pickedObject.GetComponent<Collider>().enabled = true;
         hasItem = false;
-        _playerAnimator.SetBool("IsWithObject", hasItem);
+        _ModelAnimator.SetBool("IsWithObject", hasItem);
     }
 }
