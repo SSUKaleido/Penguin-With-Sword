@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameStart();
         curentHeart = maxHeart;
         UpdateHeartStatus();
         //alpha = QuitCanvas.GetComponent<CanvasGroup>().alpha;
@@ -55,9 +56,6 @@ public class GameManager : MonoBehaviour
 
         stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
         // scorePointerUiTextMeshPro = scorePointerUi.GetComponent<TextMeshProUGUI>();
-        
-        //메인 BGM 재생
-        SoundManager.instance.PlayBgm(true);
     }
 
     // Update is called once per frame
@@ -78,6 +76,11 @@ public class GameManager : MonoBehaviour
         UpdatePoint();
     }
 
+    public void GameStart()
+    {
+        //메인 BGM 재생
+        SoundManager.instance.PlayBgm(true);
+    }
     public void SpawnCustomer()
     {
         PoolManager.GetComponent<PoolManager>().Get(0);
@@ -165,6 +168,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("게임오버!!!");
         gameOverUI.SetActive(true);
         SaveStageScore();
+        SoundManager.instance.EffectBgm(true);
     }
     
     public void StageClear()
@@ -185,8 +189,7 @@ public class GameManager : MonoBehaviour
         SaveStageScore();
         
         gameCompleteUI.SetActive(true);
-        
-        
+        SoundManager.instance.EffectBgm(true);
     }
 
     public void AddStageScore(int gainScore = 10)
@@ -213,17 +216,20 @@ public class GameManager : MonoBehaviour
         // 레벨 재시작
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1;
+        SoundManager.instance.PlayBgm(false);
     }
 
     public void mainMenu()
     {
         SceneManager.LoadScene("StageSelectScene");
         Time.timeScale = 1;
+        SoundManager.instance.PlayBgm(false);
     }
 
     public void QuitGame()
     {
         Application.Quit();
+        SoundManager.instance.PlayBgm(false);
     }
     
 }
