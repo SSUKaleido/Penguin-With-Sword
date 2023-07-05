@@ -146,7 +146,7 @@ public class PlayerTouchMovement : MonoBehaviour
         buttonRectTransform = InteractionButton.GetComponent<RectTransform>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Vector3 scaledMovement = moveSpeed * Time.deltaTime * new Vector3(MovementAmount.x, 0, MovementAmount.y);
         UpdatePlayerWalking();
