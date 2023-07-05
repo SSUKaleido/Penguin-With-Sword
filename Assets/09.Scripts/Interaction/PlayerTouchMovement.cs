@@ -28,6 +28,13 @@ public class PlayerTouchMovement : MonoBehaviour
     private GameObject Model;
     private Animator ModelAnimator;
     
+    private Finger buttonClickFinger;
+    private bool isInteracitonButtonOn=false;
+    
+    [SerializeField]
+    private GameObject InteractionButton;
+    private RectTransform buttonRectTransform;
+    
     private void OnEnable()
     {
         EnhancedTouchSupport.Enable();
@@ -51,7 +58,7 @@ public class PlayerTouchMovement : MonoBehaviour
             Vector2 knobPosition;
             float maxMovement = JoystickSize.x / 2f;
             ETouch.Touch currentTouch = MovedFinger.currentTouch;
-
+            
             if (Vector2.Distance(
                     currentTouch.screenPosition,
                     Joystick.RectTransform.anchoredPosition
@@ -81,18 +88,31 @@ public class PlayerTouchMovement : MonoBehaviour
             Joystick.gameObject.SetActive(false);
             MovementAmount = Vector2.zero;
         }
+        else if (LostFinger == buttonClickFinger)
+        {
+            buttonClickFinger = null;
+            Joystick.RectTransform.anchoredPosition = Vector2.zero; 
+            InteractionButton.gameObject.SetActive(false);
+            isInteracitonButtonOn = false;
+        }
     }
 
     private void HandleFingerDown(Finger TouchedFinger)
     {
         if (MovementFinger == null && TouchedFinger.screenPosition.x <= Screen.width / 2f)
         {
-            
             MovementFinger = TouchedFinger;
             MovementAmount = Vector2.zero;
             Joystick.gameObject.SetActive(true);
             Joystick.RectTransform.sizeDelta = JoystickSize;//위치고정
             Joystick.RectTransform.anchoredPosition = ClampStartPosition(TouchedFinger.screenPosition);
+        }
+        else if (buttonClickFinger == null && TouchedFinger.screenPosition.x > Screen.width / 2f)
+        {
+            buttonClickFinger = TouchedFinger;
+            InteractionButton.gameObject.SetActive(true);
+            buttonRectTransform.position = TouchedFinger.screenPosition;
+            isInteracitonButtonOn = true;
         }
     }
 
@@ -102,12 +122,12 @@ public class PlayerTouchMovement : MonoBehaviour
         {
             StartPosition.x = JoystickSize.x / 2;
         }
-
-        if (StartPosition.y < JoystickSize.y / 2)
+        
+        if (StartPosition.y < JoystickSize.y / 2)//joystick
         {
             StartPosition.y = JoystickSize.y / 2;
         }
-        else if (StartPosition.y > Screen.height - JoystickSize.y / 2)
+        else if (StartPosition.y > Screen.height - JoystickSize.y / 2) //joystick
         {
             StartPosition.y = Screen.height - JoystickSize.y / 2;
         }
@@ -122,6 +142,7 @@ public class PlayerTouchMovement : MonoBehaviour
     private void Start()
     {
         rigidbody = this.GetComponent<Rigidbody>();
+        buttonRectTransform = InteractionButton.GetComponent<RectTransform>();
     }
 
     private void Update()

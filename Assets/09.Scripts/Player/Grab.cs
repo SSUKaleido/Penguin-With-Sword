@@ -15,13 +15,18 @@ public class Grab : MonoBehaviour
     [SerializeField] private Transform pickupObjectParent;
     [SerializeField] private Transform closestObject = null;
 
-    [SerializeField]private Animator _playerAnimator;
+    [SerializeField] private GameObject Model;
+    private Animator _ModelAnimator;
+
+    [SerializeField] private GameObject PoolManager;
     private PoolManager _poolManager;
+
+    [SerializeField] private GameObject InteractionButton;
     
     void Start()
     {
-        _playerAnimator = transform.parent.GetComponentInChildren<Animator>();
-        _poolManager = GameObject.Find("PoolManager").GetComponent<PoolManager>();
+        _ModelAnimator = transform.parent.GetComponentInChildren<Animator>();
+        _poolManager = PoolManager.GetComponent<PoolManager>();
     }
     
     void Update()
@@ -61,7 +66,7 @@ public class Grab : MonoBehaviour
                 }
                 else if (closestObject.CompareTag("Captain")) //선장 꺠우기
                 {
-                    _playerAnimator.SetTrigger("Smash");
+                    _ModelAnimator.SetTrigger("Smash");
                     // Debug.Log("closestObject:"+closestObject.ToString());
                     Captain captain =  closestObject.GetComponent<Captain>();
                     if (captain.isSleeping)
@@ -150,7 +155,7 @@ public class Grab : MonoBehaviour
         pickedObject = grabObject;
         closestObject = null;
         hasItem = true;
-        _playerAnimator.SetBool("IsWithObject", hasItem);
+        _ModelAnimator.SetBool("IsWithObject", hasItem);
     }
 
     void DropPickedObjectObject(Vector3 dropPosition = default)
@@ -164,6 +169,6 @@ public class Grab : MonoBehaviour
         pickedObject.GetComponent<Rigidbody>().isKinematic = false;
         pickedObject.GetComponent<Collider>().enabled = true;
         hasItem = false;
-        _playerAnimator.SetBool("IsWithObject", hasItem);
+        _ModelAnimator.SetBool("IsWithObject", hasItem);
     }
 }

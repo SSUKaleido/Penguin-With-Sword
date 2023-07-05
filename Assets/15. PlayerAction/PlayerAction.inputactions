@@ -1,0 +1,60 @@
+{
+    "name": "PlayerAction",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "ca986eed-3d4e-4659-8ed1-a3f1f2a72b39",
+            "actions": [
+                {
+                    "name": "JoyStick",
+                    "type": "Button",
+                    "id": "75e70f8e-0666-4d8d-85d6-13f84bdce2d6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "InterAction Button",
+                    "type": "Button",
+                    "id": "5d65633e-7535-45df-ba9e-5c3e76d445c4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b05d2b1a-b289-4353-9294-8713578b4d41",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mobile",
+                    "action": "JoyStick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cad27538-fcf5-4d73-a87a-e20e0fb4075a",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InterAction Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Mobile",
+            "bindingGroup": "Mobile",
+            "devices": []
+        }
+    ]
+}
