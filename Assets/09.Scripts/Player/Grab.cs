@@ -74,6 +74,7 @@ public class Grab : MonoBehaviour
                 {
                     //_playerAnimator.SetTrigger("DiveTriggerOn");
                     GrabClosestObject(_poolManager.Get(1).transform);
+                    SoundManager.instance.PlaySfx(SoundManager.Sfx.Penguin_diving);
                 }
                 else if (closestObject.CompareTag("Captain")) //선장 꺠우기
                 {

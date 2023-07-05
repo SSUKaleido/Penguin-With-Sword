@@ -105,6 +105,7 @@ public class Fish : MonoBehaviour
         if (other.CompareTag("Pan"))
         {
             cookable = true;
+            SoundManager.instance.PlaySfx(SoundManager.Sfx.FishCooking);
         }
         else if (other.CompareTag("Servertable"))
         {

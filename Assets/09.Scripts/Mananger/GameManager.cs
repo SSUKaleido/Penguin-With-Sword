@@ -195,6 +195,7 @@ public class GameManager : MonoBehaviour
     public void AddStageScore(int gainScore = 10)
     {
         stageScore += gainScore;
+        SoundManager.instance.PlaySfx(SoundManager.Sfx.MissionClear);
     }
 
     /**
