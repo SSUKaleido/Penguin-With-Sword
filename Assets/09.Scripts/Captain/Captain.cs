@@ -18,7 +18,7 @@ public class Captain : MonoBehaviour
     
     private Animator _captainAnimator;
 
-    public GameManager _gameManager;
+    public GameManager gameManager;
 
     public Material awakeMaterial;
     public Material sleepMaterial;
@@ -41,7 +41,7 @@ public class Captain : MonoBehaviour
             else
             {
                 // TODO: 실패 연출
-                _gameManager.ReduceHeart();
+                gameManager.ReduceHeart(transform.position);
                 CaptainAwake();
             }
         }
@@ -70,7 +70,6 @@ public class Captain : MonoBehaviour
     {
         if (isSleeping)
         {
-            _gameManager.AddStageScore();
             PlayerPrefs.SetInt("captainAwakeCount",PlayerPrefs.GetInt("captainAwakeCount")+1);
             isSleeping = false;
             _captainAnimator.SetTrigger("smashCaptain");

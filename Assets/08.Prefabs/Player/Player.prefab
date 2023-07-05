@@ -308,6 +308,9 @@ MonoBehaviour:
   pickupObjectParent: {fileID: 0}
   closestObject: {fileID: 0}
   _playerAnimator: {fileID: 0}
+  gameManager: {fileID: 0}
+  smashParticlePrefab: {fileID: 100004, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
+  particleGroup: {fileID: 0}
 --- !u!1 &1645609188994811425
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,7 +1355,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59dbbac88cf4bdc4f93cb84693da8048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
 --- !u!114 &8555367458350973507
 MonoBehaviour:
   m_ObjectHideFlags: 0
