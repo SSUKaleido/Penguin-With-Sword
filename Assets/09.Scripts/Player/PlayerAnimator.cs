@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,10 +7,20 @@ public class PlayerAnimator : MonoBehaviour
 {
     private Animator _animator;
     
-    // Start is called before the first frame update
     void Start()
     {
         _animator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        // _playerAnimator.Parameter변경
+        //_playerAnimator.SetFloat("ForwardVelocity", dir.magnitude);
+
+        if (Input.GetKeyDown("r"))
+        {
+            _animator.SetTrigger("Smash");
+        }
     }
 
     public void SetFloat(string paramName, float value)
