@@ -84,9 +84,9 @@ MonoBehaviour:
   - {fileID: 2100000, guid: fb80b3af219c54a4c9fa4d66bb512cf9, type: 2}
   - {fileID: 2100000, guid: dcdba99060c719d4e9b1235d4fa3416d, type: 2}
   matfin:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 045a2ec5278365147a62e327e7d4d88b, type: 2}
+  - {fileID: 2100000, guid: fb80b3af219c54a4c9fa4d66bb512cf9, type: 2}
+  - {fileID: 2100000, guid: dcdba99060c719d4e9b1235d4fa3416d, type: 2}
   cookState: 0
   cookTime: 0
   wellcookTime: 5
