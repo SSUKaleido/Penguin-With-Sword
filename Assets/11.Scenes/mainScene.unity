@@ -123,10 +123,10 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &58174999 stripped
+--- !u!1 &95022368 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 2757954660505962583, guid: 3dbae2febe84f1641964386f38696fb6, type: 3}
-  m_PrefabInstance: {fileID: 1497796759}
+  m_CorrespondingSourceObject: {fileID: 1326469168541368188, guid: 89eed752cebdc704c88a6ea932fb2256, type: 3}
+  m_PrefabInstance: {fileID: 1801991691}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &203217069 stripped
 GameObject:
@@ -686,11 +686,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2757954659594937183, guid: 3dbae2febe84f1641964386f38696fb6, type: 3}
   m_PrefabInstance: {fileID: 1497796759}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1352676036 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2019045086512529856, guid: 3dbae2febe84f1641964386f38696fb6, type: 3}
-  m_PrefabInstance: {fileID: 1497796759}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1397521220
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,10 +729,10 @@ MonoBehaviour:
   GameOverScreen: {fileID: 0}
   mainCamera: {fileID: 487800471}
   alpha: 0
-  clearTextUi: {fileID: 1352676036}
-  scorePointerUi: {fileID: 58174999}
+  playTime: 0
   reduceHeartParticlePrefab: {fileID: 100006, guid: bcaff8fc36e95584bb27cc3cf7c6cb14, type: 3}
   particleGroup: {fileID: 2019563291}
+  _player: {fileID: 1023540717}
 --- !u!4 &1397521222
 Transform:
   m_ObjectHideFlags: 0
@@ -827,6 +822,18 @@ PrefabInstance:
     - target: {fileID: 749264640061630619, guid: 3dbae2febe84f1641964386f38696fb6, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517959709208300318, guid: 3dbae2febe84f1641964386f38696fb6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517959709208300318, guid: 3dbae2febe84f1641964386f38696fb6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517959709208300318, guid: 3dbae2febe84f1641964386f38696fb6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1640035774717474640, guid: 3dbae2febe84f1641964386f38696fb6, type: 3}
       propertyPath: m_IsActive
@@ -1136,6 +1143,14 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 8555367458350973507, guid: 89eed752cebdc704c88a6ea932fb2256, type: 3}
+      propertyPath: PlayerCollider
+      value: 
+      objectReference: {fileID: 95022368}
+    - target: {fileID: 8555367458350973507, guid: 89eed752cebdc704c88a6ea932fb2256, type: 3}
+      propertyPath: GameManagerObject
+      value: 
+      objectReference: {fileID: 1397521220}
     - target: {fileID: 8555367458350973507, guid: 89eed752cebdc704c88a6ea932fb2256, type: 3}
       propertyPath: InteractionButton
       value: 
