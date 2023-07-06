@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
                     {
                         //실패
                         Debug.Log("서빙 실패!!!");
+                        _customerMovement.SetCustomerStateCode(2);
                         ReduceHeart(_gameObject.transform.position);
                     }
                     
@@ -168,6 +169,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        Time.timeScale = 0;
         _player.GetComponent<PlayerTouchMovement>().isGaming = false;
         Debug.Log("게임오버!!!");
         gameOverUI.SetActive(true);
@@ -219,15 +221,15 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         // 레벨 재시작
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         SoundManager.instance.PlayBgm(false);
     }
 
     public void mainMenu()
     {
-        SceneManager.LoadScene("StageSelectScene");
         Time.timeScale = 1;
+        SceneManager.LoadScene("StageSelectScene");
         SoundManager.instance.PlayBgm(false);
     }
 

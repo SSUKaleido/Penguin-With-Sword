@@ -40,9 +40,8 @@ public class Captain : MonoBehaviour
             }
             else
             {
-                // TODO: 실패 연출
-                gameManager.ReduceHeart(transform.position);
                 CaptainAwake();
+                gameManager.ReduceHeart(transform.position);
             }
         }
         else
