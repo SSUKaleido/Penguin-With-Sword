@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1199712781618846216}
   m_Layer: 0
   m_Name: Fish
-  m_TagString: Untagged
+  m_TagString: Grabable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,14 +28,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839569603054844893}
-  m_LocalRotation: {x: -0.50000054, y: -0.5, z: -0.49999952, w: 0.50000006}
-  m_LocalPosition: {x: 19.108, y: 5.94, z: 6.303}
+  m_LocalRotation: {x: 0.7071065, y: 0.000000014936298, z: -0.7071072, w: -3.5135672e-11}
+  m_LocalPosition: {x: 19.112034, y: 5.9440327, z: 6.2992806}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: -180}
 --- !u!54 &-5722074632628762039
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -63,8 +63,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.5, z: 0.25}
-  m_Center: {x: 0, y: 0, z: 0.17}
+  m_Size: {x: 0.9891496, y: 0.5286877, z: 1.5562332}
+  m_Center: {x: -0.0072853565, y: 0, z: 0.025918603}
 --- !u!114 &-6477676004134542194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,10 +80,6 @@ MonoBehaviour:
   cookable: 0
   isServing: 0
   matbody:
-  - {fileID: 2100000, guid: 045a2ec5278365147a62e327e7d4d88b, type: 2}
-  - {fileID: 2100000, guid: fb80b3af219c54a4c9fa4d66bb512cf9, type: 2}
-  - {fileID: 2100000, guid: dcdba99060c719d4e9b1235d4fa3416d, type: 2}
-  matfin:
   - {fileID: 2100000, guid: 045a2ec5278365147a62e327e7d4d88b, type: 2}
   - {fileID: 2100000, guid: fb80b3af219c54a4c9fa4d66bb512cf9, type: 2}
   - {fileID: 2100000, guid: dcdba99060c719d4e9b1235d4fa3416d, type: 2}
