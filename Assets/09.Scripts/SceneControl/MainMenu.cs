@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
         //LoadingSceneController.LoadScene("mainScene");
         //LoadingSceneController.Instance.LoadScene("mainScene");
         StartCoroutine(ButtonDelay());
-        SceneManager.LoadScene("mainScene");
+        SceneManager.LoadScene("StageSelectScene");
     }
 
     public void QuickGame()
