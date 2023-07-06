@@ -1,5 +1,8 @@
 using System;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.EnhancedTouch;
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
@@ -35,6 +38,15 @@ public class PlayerTouchMovement : MonoBehaviour
     [SerializeField]
     public GameObject InteractionButton;
     private RectTransform buttonRectTransform;
+        
+    public bool isGaming=true;
+
+    [SerializeField] private GameObject GameManagerObject;
+    private GameManager _gameManager;
+    private float buttonOnStart = 0.0f;
+    private float buttonOnEnd;
+    
+    [SerializeField] private GameObject PlayerCollider;
     
     private void OnEnable()
     {
@@ -59,7 +71,7 @@ public class PlayerTouchMovement : MonoBehaviour
             Vector2 knobPosition;
             float maxMovement = JoystickSize.x / 2f;
             ETouch.Touch currentTouch = MovedFinger.currentTouch;
-            
+
             if (Vector2.Distance(
                     currentTouch.screenPosition,
                     Joystick.RectTransform.anchoredPosition
@@ -85,22 +97,21 @@ public class PlayerTouchMovement : MonoBehaviour
         if (LostFinger == MovementFinger)
         {
             MovementFinger = null;
-            Joystick.Knob.anchoredPosition = Vector2.zero;
             Joystick.gameObject.SetActive(false);
+            Joystick.Knob.anchoredPosition = Vector2.zero;
             MovementAmount = Vector2.zero;
         }
         else if (LostFinger == buttonClickFinger)
         {
-            buttonClickFinger = null;
-            Joystick.RectTransform.anchoredPosition = Vector2.zero; 
+            buttonClickFinger = null; 
             InteractionButton.gameObject.SetActive(false);
-            isInteractionButtonOn = false;
+            Joystick.RectTransform.anchoredPosition = Vector2.zero;
         }
     }
 
     private void HandleFingerDown(Finger TouchedFinger)
     {
-        if (MovementFinger == null && TouchedFinger.screenPosition.x <= Screen.width / 2f)
+        if (MovementFinger == null && isGaming && TouchedFinger.screenPosition.x <= Screen.width / 2f)
         {
             MovementFinger = TouchedFinger;
             MovementAmount = Vector2.zero;
@@ -108,8 +119,9 @@ public class PlayerTouchMovement : MonoBehaviour
             Joystick.RectTransform.sizeDelta = JoystickSize;//위치고정
             Joystick.RectTransform.anchoredPosition = ClampStartPosition(TouchedFinger.screenPosition);
         }
-        else if (buttonClickFinger == null && TouchedFinger.screenPosition.x > Screen.width / 2f)
+        else if (buttonClickFinger == null && isGaming && TouchedFinger.screenPosition.x > Screen.width / 2f)
         {
+            buttonOnStart = _gameManager.playTime;
             buttonClickFinger = TouchedFinger;
             InteractionButton.gameObject.SetActive(true);
             buttonRectTransform.position = TouchedFinger.screenPosition;
@@ -138,6 +150,7 @@ public class PlayerTouchMovement : MonoBehaviour
 
     private void Awake()
     {
+        _gameManager = GameManagerObject.GetComponent<GameManager>();
         ModelAnimator=Model.GetComponent<Animator>();
     }
     private void Start()
@@ -153,12 +166,24 @@ public class PlayerTouchMovement : MonoBehaviour
         Player.transform.LookAt(Player.transform.position + scaledMovement, Vector3.up);
         // Player.Move(scaledMovement);
         rigidbody.MovePosition(Player.gameObject.transform.position + scaledMovement);
-    }
 
+        if (isInteractionButtonOn && (_gameManager.playTime-buttonOnStart)>0.2f)
+        {
+            buttonOnStart = 0.0f;
+            HandleLoseFinger(buttonClickFinger);
+        }
+        //PlayerCollider.GetComponent<Grab>().GetFishCount = 0;
+    }
+    
+    public void onPointerClickEventTrigger()
+    {
+        print("Button Clicked");
+    }
     private void UpdatePlayerWalking()
     {
         ModelAnimator.SetBool("isWalking",MovementAmount.magnitude > 0);
     }
+    
     /*private void OnGUI()
     {
         GUIStyle labelStyle = new GUIStyle()
