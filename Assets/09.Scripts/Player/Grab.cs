@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using TreeEditor;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -32,6 +33,10 @@ public class Grab : MonoBehaviour
     [SerializeField] private GameObject InteractionButton;
     [SerializeField] private GameObject _player;
     [SerializeField] private bool isButtonPressing=false;
+    //public int GetFishCount = 0;
+    //public int GetCaptainSlap = 0;
+    [SerializeField] private bool isPlayerDiving=false;
+    
     void Start()
     {
         _playerAnimator = Model.GetComponent<Animator>();
@@ -41,6 +46,7 @@ public class Grab : MonoBehaviour
     
     void Update()
     {
+        //isPlayerDiving = _player.GetComponent<PlayerTouchMovement>().isDiving;
         isButtonPressing = _player.GetComponent<PlayerTouchMovement>().isInteractionButtonOn;
         //잡고 있을 떈 놓고 잡아야 하는 시스템
         if (isButtonPressing)
@@ -70,12 +76,13 @@ public class Grab : MonoBehaviour
                 {
                     GrabClosestObject(closestObject);
                 }
-                else if (closestObject.CompareTag("DiveTrigger")) //근처에 있는 오브젝트 풀업 하기
+                else if (closestObject.CompareTag("DiveTrigger")) //다이빙해서 물고기 잡기
                 {
-                    //_playerAnimator.SetTrigger("DiveTriggerOn");
+                    //_playerAnimator.SetTrigger("isDiveReady");
+                    //Player Jump and Up
                     GrabClosestObject(_poolManager.Get(1).transform);
                 }
-                else if (closestObject.CompareTag("Captain")) //선장 꺠우기
+                else if (closestObject.CompareTag("Captain")) //선장 깨우기
                 {
                     _playerAnimator.SetTrigger("Smash");
                     Captain captain =  closestObject.GetComponent<Captain>();
@@ -87,8 +94,11 @@ public class Grab : MonoBehaviour
                         gameManager.AddStageScore();
                         captain.CaptainAwake();
                     }
+                    
                 }
+                
             }
+            _player.GetComponent<PlayerTouchMovement>().isInteractionButtonOn = false;
         }
     }
     
@@ -169,7 +179,7 @@ public class Grab : MonoBehaviour
         pickedObject = grabObject;
         closestObject = null;
         hasItem = true;
-        _playerAnimator.SetBool("IsWithObject", hasItem);
+        _playerAnimator.SetBool("isHolding",hasItem);
     }
 
     void DropPickedObjectObject(Vector3 dropPosition = default)
@@ -183,6 +193,6 @@ public class Grab : MonoBehaviour
         pickedObject.GetComponent<Rigidbody>().isKinematic = false;
         pickedObject.GetComponent<Collider>().enabled = true;
         hasItem = false;
-        _playerAnimator.SetBool("IsWithObject", hasItem);
+        _playerAnimator.SetBool("isHolding",hasItem);
     }
 }
