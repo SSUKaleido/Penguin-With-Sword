@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float alpha;
     //public GameObject Canvas;
 
-    private float playTime;
+    public float playTime;
 
     private int stageScore = 0;
 
@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
     
     public GameObject reduceHeartParticlePrefab;
     public Transform particleGroup;
+
+    [SerializeField]
+    private GameObject _player;
     
     // Start is called before the first frame update
     void Start()
@@ -159,6 +162,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        _player.GetComponent<PlayerTouchMovement>().isGaming = false;
         Debug.Log("게임오버!!!");
         gameOverUI.SetActive(true);
         SaveStageScore();
