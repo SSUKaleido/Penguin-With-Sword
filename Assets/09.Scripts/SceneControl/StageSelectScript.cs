@@ -21,6 +21,7 @@ public class StageSelectScript : MonoBehaviour
     
     public void GoToShop() {
         // 상점 화면으로 이동
-        // SceneManager.LoadScene("");
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByName("StoreScene"));
+        SceneManager.LoadScene("StoreScene",LoadSceneMode.Additive);
     }
 }

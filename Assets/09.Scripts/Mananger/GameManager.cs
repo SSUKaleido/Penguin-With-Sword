@@ -233,6 +233,13 @@ public class GameManager : MonoBehaviour
         SoundManager.instance.PlayBgm(false);
     }
 
+    public void ShopMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("StoreScene",LoadSceneMode.Additive);
+        SoundManager.instance.PlayBgm(false);
+    }
+
     public void QuitGame()
     {
         Application.Quit();
