@@ -3,7 +3,20 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground
+  - CustomerWaypoints
+  - Customer
+  - CustomerWaypointsEnter
+  - CustomerWaypointsExit
+  - log
+  - Pan
+  - DiveTrigger
+  - Grabable
+  - Servertable
+  - Kitchen
+  - AttackHitBox
+  - Captain
   layers:
   - Default
   - TransparentFX
@@ -11,8 +24,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - log
+  - Ground
   - 
   - 
   - 
